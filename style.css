@@ -1,0 +1,324 @@
+/* RESET E CONFIGURAÇÃO BÁSICA */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: #08070b;
+    font-family: 'Montserrat', sans-serif;
+    color: #f7f5f0;
+}
+
+/* CANVAS E EFEITOS VISUAIS DE FUNDO */
+#particles-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #08070b;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 100;
+    transition: opacity 0.8s ease-in-out;
+}
+
+.transition-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* ESTRUTURA DE CENAS */
+#app-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.scene {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), visibility 1.2s;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.scene.active {
+    opacity: 1;
+    visibility: visible;
+    z-index: 2;
+}
+
+/* EFEITO KEN BURNS (ZOOM CINEMATOGRÁFICO LENTO) */
+.scene-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transform: scale(1);
+    transition: transform 12s cubic-bezier(0.1, 0.8, 0.3, 1);
+    will-change: transform;
+}
+
+.scene.active .scene-background {
+    transform: scale(1.08);
+}
+
+.scene-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        rgba(8, 7, 11, 0.2) 0%,
+        rgba(8, 7, 11, 0.4) 60%,
+        rgba(8, 7, 11, 0.75) 100%
+    );
+    z-index: 2;
+}
+
+.scene-overlay.blur-overlay {
+    background: rgba(8, 7, 11, 0.65);
+    backdrop-filter: blur(8px);
+}
+
+.scene-background.fallback {
+    background: radial-gradient(circle at center, #2d2636 0%, #08070b 100%) !important;
+}
+
+/* CONTEÚDO E TEXTOS */
+.scene-content {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    padding: 2.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-center {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.text-bottom {
+    justify-content: flex-end;
+    align-items: center;
+    text-align: center;
+    padding-bottom: 5rem;
+}
+
+.title-intro {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    color: #fff9ef;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    transform: translateY(15px);
+    animation: fadeInUp 1.5s ease 0.4s forwards;
+}
+
+.subtitle-intro {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-style: italic;
+    color: #e2d9cc;
+    margin-bottom: 2.5rem;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transform: translateY(15px);
+    animation: fadeInUp 1.5s ease 0.8s forwards;
+}
+
+.narrative-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    line-height: 1.5;
+    color: #f7f3ec;
+    max-width: 650px;
+    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.8);
+    margin-bottom: 0.5rem;
+    opacity: 0;
+    transform: translateY(15px);
+}
+
+.scene.active .narrative-text {
+    animation: fadeInUp 1.2s ease 0.3s forwards;
+}
+
+.narrative-text.subtext {
+    font-size: 1.35rem;
+    color: #d1c5b4;
+    margin-bottom: 2rem;
+}
+
+.scene.active .narrative-text.subtext {
+    animation-delay: 1.2s;
+}
+
+/* BOTÕES ESTILIZADOS */
+.btn-primary {
+    background: rgba(255, 253, 248, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    color: #ffffff;
+    padding: 0.85rem 2rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    border-radius: 40px;
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+    transition: all 0.4s ease;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
+    margin-top: 1.5rem;
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.scene.active .btn-primary {
+    animation: fadeInUp 1s ease 1s forwards;
+}
+
+.btn-primary:hover {
+    background: rgba(255, 253, 248, 0.3);
+    border-color: rgba(255, 255, 255, 0.7);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 30px rgba(255, 255, 255, 0.2);
+}
+
+.btn-primary:active {
+    transform: translateY(1px);
+}
+
+/* CARTÃO DA CARTA */
+.letter-card {
+    background: rgba(20, 18, 26, 0.75);
+    border: 1px solid rgba(230, 210, 180, 0.25);
+    border-radius: 12px;
+    padding: 2.2rem 1.8rem;
+    max-width: 520px;
+    width: 100%;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(12px);
+    text-align: center;
+    opacity: 0;
+    transform: scale(0.95);
+}
+
+.scene.active .letter-card {
+    animation: cardAppear 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s forwards;
+}
+
+.letter-header {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    color: #e5c388;
+    margin-bottom: 1.2rem;
+    letter-spacing: 1px;
+}
+
+.letter-body p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #ebdcd0;
+    margin-bottom: 0.8rem;
+    font-style: italic;
+}
+
+/* CONTROLE DE ÁUDIO */
+.audio-control {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 50;
+    background: rgba(10, 10, 15, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+}
+
+.audio-control:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* ANIMAÇÕES */
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes cardAppear {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* RESPONSIVIDADE DESKTOPS */
+@media (min-width: 768px) {
+    .title-intro {
+        font-size: 3.5rem;
+    }
+    .subtitle-intro {
+        font-size: 1.8rem;
+    }
+    .narrative-text {
+        font-size: 2rem;
+    }
+    .narrative-text.subtext {
+        font-size: 1.6rem;
+    }
+    .text-bottom {
+        padding-bottom: 6rem;
+    }
+    .btn-primary {
+        padding: 1rem 2.5rem;
+        font-size: 0.9rem;
+    }
+    .letter-card {
+        padding: 3rem 2.5rem;
+    }
+}

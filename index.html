@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uma Jornada para Maria Eduarda</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="../Maria-Ghibli/imagens/amor.png.png" type="image/x-icon">
+    <!-- Google Fonts para estilo poético/cinematográfico -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Overlay de transição entre cenas -->
+    <div id="transition-overlay" class="transition-overlay"></div>
+
+    <!-- Canvas para efeito de partículas mágicas/vento -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Controle Discreto de Áudio -->
+    <button id="audio-control" class="audio-control" aria-label="Alternar som" title="Música ambiente">
+        <span id="audio-icon">🎵</span>
+    </button>
+    <audio id="bg-music" loop preload="auto">
+        <source src="imagens/paulyudin-romantic-romantic-music-573992 (1).mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- CONTAINER PRINCIPAL DE CENAS -->
+    <main id="app-container">
+
+        <!-- CENA 0: ABERTURA -->
+        <section class="scene active" data-scene="0">
+            <div class="scene-background" style="background-image: url('imagens/abertura.jpg');"></div>
+            <div class="scene-overlay"></div>
+            <div class="scene-content flex-center">
+                <h1 class="title-intro">Maria Eduarda...</h1>
+                <p class="subtitle-intro">Posso te mostrar uma coisa?</p>
+                <button class="btn-primary" onclick="nextScene()">✦ ENTRAR</button>
+            </div>
+        </section>
+
+        <!-- CENA 1: FLORESTA -->
+        <section class="scene" data-scene="1">
+            <div class="scene-background" style="background-image: url('imagens/floresta.jpg');"></div>
+            <div class="scene-overlay"></div>
+            <div class="scene-content text-bottom">
+                <p class="narrative-text">Às vezes, as melhores histórias começam sem a gente saber onde vão terminar.</p>
+                <button class="btn-primary" onclick="nextScene()">CONTINUAR →</button>
+            </div>
+        </section>
+
+        <!-- CENA 2: A COLINA -->
+        <section class="scene" data-scene="2">
+            <div class="scene-background" style="background-image: url('imagens/colina.jpg');"></div>
+            <div class="scene-overlay"></div>
+            <div class="scene-content text-bottom">
+                <p class="narrative-text">Talvez o caminho não seja sobre chegar rápido...</p>
+                <p class="narrative-text subtext">...mas sobre perceber o que existe durante o caminho.</p>
+                <button class="btn-primary" onclick="nextScene()">CONTINUAR →</button>
+            </div>
+        </section>
+
+        <!-- CENA 3: JARDIM DOS LÍRIOS -->
+        <section class="scene" data-scene="3">
+            <div class="scene-background" style="background-image: url('imagens/lirios.jpg');"></div>
+            <div class="scene-overlay"></div>
+            <div class="scene-content text-bottom">
+                <p class="narrative-text">Alguns lugares fazem a gente parar por alguns segundos...</p>
+                <p class="narrative-text subtext">...só para perceber como algo simples pode ser bonito.</p>
+                <button class="btn-primary" onclick="nextScene()">CONTINUAR →</button>
+            </div>
+        </section>
+
+        <!-- CENA 4: A CARTA -->
+        <section class="scene" data-scene="4">
+            <div class="scene-background" style="background-image: url('imagens/lirios.jpg');"></div>
+            <div class="scene-overlay blur-overlay"></div>
+            <div class="scene-content flex-center">
+                <div class="letter-card">
+                    <div class="letter-header">✦ Para Maria Eduarda</div>
+                    <div class="letter-body">
+                        <p>Maria Eduarda,</p>
+                        <p>Eu poderia simplesmente ter escrito uma mensagem qualquer...</p>
+                        <p>Mas achei que seria muito mais bonito te levar por um pequeno caminho antes.</p>
+                        <p>Não sei exatamente onde essa história vai chegar.</p>
+                        <p>Mas gostei da ideia de criar um lugar bonito para você visitar por alguns minutos.</p>
+                        <p>Espero que você tenha gostado da viagem.</p>
+                    </div>
+                    <button class="btn-primary" onclick="nextScene()">CONTINUAR ❤</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- CENA 5: FINAL -->
+        <section class="scene" data-scene="5">
+            <div class="scene-background" style="background-image: url('imagens/vista.png.png');"></div>
+            <div class="scene-overlay"></div>
+            <div class="scene-content flex-center">
+                <h1 class="title-intro">Talvez essa seja só a primeira página.</h1>
+                <p class="subtitle-intro">E o resto... a gente pode descobrir pelo caminho.</p>
+                <div class="final-actions">
+                    <button class="btn-primary" onclick="restartJourney()">♡ REVISITAR A HISTÓRIA</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
