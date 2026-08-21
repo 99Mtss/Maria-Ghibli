@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<link rel="shortcut icon" href="imagens/duda.png" type="image/x-icon">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Capítulo 5 — Um pequeno gesto</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet"
+    >
+
+</head>
+
+
+<body>
+
+    <main class="chapter-page">
+
+
+        <!-- =========================================
+             CABEÇALHO
+        ========================================== -->
+
+        <header class="chapter-header">
+
+            <a
+                href="capitulo4.html"
+                class="back-home"
+                aria-label="Voltar ao capítulo anterior"
+            >
+                ←
+            </a>
+
+
+            <div class="chapter-brand">
+
+                <span>
+                    MUNDO DE EUDORA
+                </span>
+
+            </div>
+
+
+            <div class="chapter-number">
+                05 / 06
+            </div>
+
+        </header>
+
+
+
+        <!-- =========================================
+             TÍTULO
+        ========================================== -->
+
+        <section class="chapter-intro">
+
+            <span class="chapter-label">
+                CAPÍTULO 05
+            </span>
+
+
+            <h1>
+                Um pequeno gesto
+            </h1>
+
+
+            <p>
+                Às vezes, aquilo que parece
+                pequeno para nós significa
+                tudo para alguém.
+            </p>
+
+        </section>
+
+
+
+        <!-- =========================================
+             QUADRINHO
+        ========================================== -->
+
+        <section class="comic-container">
+
+            <div class="comic-frame">
+
+                <img
+                    src="imagens/Eu5.png"
+                    alt="Quinto quadrinho da história de Eudora"
+                    class="comic-image"
+                >
+
+            </div>
+
+
+            <div class="comic-number">
+                05
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================================
+             TEXTO DA HISTÓRIA
+        ========================================== -->
+
+        <section class="chapter-text">
+
+            <div class="decorative-line">
+                ♡
+            </div>
+
+
+            <p>
+                Naquele dia, uma das crianças
+                parecia mais quieta do que o normal.
+            </p>
+
+
+            <p>
+                Eudora percebeu.
+                Ela se aproximou devagar,
+                sentou ao seu lado e perguntou
+                se estava tudo bem.
+            </p>
+
+
+            <p>
+                Não precisou de grandes palavras.
+                Apenas ficou ali, ouvindo.
+            </p>
+
+
+            <p>
+                E quando aquele pequeno sorriso
+                finalmente apareceu,
+                Eudora percebeu o quanto
+                um simples gesto podia significar.
+            </p>
+
+        </section>
+
+
+
+        <!-- =========================================
+             PROGRESSO
+        ========================================== -->
+
+        <section class="story-progress">
+
+            <div class="progress-info">
+
+                <span>
+                    Sua jornada
+                </span>
+
+                <span>
+                    5 de 6
+                </span>
+
+            </div>
+
+
+            <div class="progress-bar">
+
+                <div
+                    class="progress-fill"
+                    style="width: 83.33%;"
+                ></div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================================
+             NAVEGAÇÃO
+        ========================================== -->
+
+        <section class="chapter-navigation">
+
+
+            <!-- VOLTAR -->
+
+            <a
+                href="capitulo4.html"
+                class="chapter-button secondary"
+            >
+
+                <span>
+                    ←
+                </span>
+
+
+                <div>
+
+                    <small>
+                        Anterior
+                    </small>
+
+                    <strong>
+                        Capítulo 4
+                    </strong>
+
+                </div>
+
+            </a>
+
+
+
+            <!-- AVANÇAR -->
+
+            <a
+                href="capitulo6.html"
+                class="chapter-button primary"
+            >
+
+                <div>
+
+                    <small>
+                        Próximo
+                    </small>
+
+                    <strong>
+                        Capítulo 6
+                    </strong>
+
+                </div>
+
+
+                <span>
+                    →
+                </span>
+
+            </a>
+
+
+        </section>
+
+
+
+        <!-- =========================================
+             RODAPÉ
+        ========================================== -->
+
+        <footer class="chapter-footer">
+
+            <span>
+                Eudora
+            </span>
+
+            <span>
+                ♥
+            </span>
+
+            <span>
+                Uma pequena história
+            </span>
+
+        </footer>
+
+
+    </main>
+
+
+
+    <!-- =========================================
+         JAVASCRIPT
+    ========================================== -->
+
+    <script>
+
+        /* =========================================
+           ANIMAÇÃO DE ENTRADA
+        ========================================== */
+
+        window.addEventListener(
+            "load",
+            () => {
+
+                document.body.classList.add(
+                    "chapter-loaded"
+                );
+
+            }
+        );
+
+
+
+        /* =========================================
+           ZOOM DA IMAGEM
+        ========================================== */
+
+        const comicImage =
+            document.querySelector(
+                ".comic-image"
+            );
+
+
+        comicImage.addEventListener(
+            "click",
+            () => {
+
+                comicImage.classList.toggle(
+                    "zoomed"
+                );
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <link rel="shortcut icon" href="imagens/duda.png" type="image/x-icon">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Capítulo 2 — Um lugar cheio de sorrisos</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet"
+    >
+
+</head>
+
+
+<body>
+
+    <main class="chapter-page">
+
+
+        <!-- =========================================
+             CABEÇALHO
+        ========================================== -->
+
+        <header class="chapter-header">
+
+            <a
+                href="capitulo1.html"
+                class="back-home"
+                aria-label="Voltar ao capítulo anterior"
+            >
+                ←
+            </a>
+
+
+            <div class="chapter-brand">
+
+                <span>
+                    MUNDO DE EUDORA
+                </span>
+
+            </div>
+
+
+            <div class="chapter-number">
+
+                02 / 06
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =========================================
+             TÍTULO
+        ========================================== -->
+
+        <section class="chapter-intro">
+
+            <span class="chapter-label">
+                CAPÍTULO 02
+            </span>
+
+
+            <h1>
+                Um lugar cheio de sorrisos
+            </h1>
+
+
+            <p>
+                Algumas pessoas tornam
+                um lugar especial.
+            </p>
+
+        </section>
+
+
+
+        <!-- =========================================
+             QUADRINHO
+        ========================================== -->
+
+        <section class="comic-container">
+
+            <div class="comic-frame">
+
+                <img
+                    src="imagens/Eu2.png"
+                    alt="Segundo quadrinho da história de Eudora"
+                    class="comic-image"
+                >
+
+            </div>
+
+
+            <div class="comic-number">
+                02
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================================
+             TEXTO
+        ========================================== -->
+
+        <section class="chapter-text">
+
+            <div class="decorative-line">
+                ✦
+            </div>
+
+
+            <p>
+                Quando Eudora entrava na sala,
+                os rostinhos das crianças
+                logo se iluminavam.
+            </p>
+
+
+            <p>
+                Para elas, aquele não era
+                apenas um lugar para aprender.
+                Era um lugar para imaginar,
+                brincar e descobrir o mundo.
+            </p>
+
+        </section>
+
+
+
+        <!-- =========================================
+             PROGRESSO
+        ========================================== -->
+
+        <section class="story-progress">
+
+            <div class="progress-info">
+
+                <span>
+                    Sua jornada
+                </span>
+
+                <span>
+                    2 de 6
+                </span>
+
+            </div>
+
+
+            <div class="progress-bar">
+
+                <div
+                    class="progress-fill"
+                    style="width: 33.33%;"
+                ></div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================================
+             NAVEGAÇÃO
+        ========================================== -->
+
+        <section class="chapter-navigation">
+
+
+            <!-- VOLTAR -->
+
+            <a
+                href="capitulo1.html"
+                class="chapter-button secondary"
+            >
+
+                <span>
+                    ←
+                </span>
+
+
+                <div>
+
+                    <small>
+                        Anterior
+                    </small>
+
+                    <strong>
+                        Capítulo 1
+                    </strong>
+
+                </div>
+
+            </a>
+
+
+
+            <!-- AVANÇAR -->
+
+            <a
+                href="capitulo3.html"
+                class="chapter-button primary"
+            >
+
+                <div>
+
+                    <small>
+                        Próximo
+                    </small>
+
+                    <strong>
+                        Capítulo 3
+                    </strong>
+
+                </div>
+
+
+                <span>
+                    →
+                </span>
+
+            </a>
+
+
+        </section>
+
+
+
+        <!-- =========================================
+             RODAPÉ
+        ========================================== -->
+
+        <footer class="chapter-footer">
+
+            <span>
+                Eudora
+            </span>
+
+            <span>
+                ♥
+            </span>
+
+            <span>
+                Uma pequena história
+            </span>
+
+        </footer>
+
+
+    </main>
+
+
+    <!-- =========================================
+         JAVASCRIPT
+    ========================================== -->
+
+    <script>
+
+        /* =========================================
+           ANIMAÇÃO DE ENTRADA
+        ========================================== */
+
+        window.addEventListener(
+            "load",
+            () => {
+
+                document.body.classList.add(
+                    "chapter-loaded"
+                );
+
+            }
+        );
+
+
+
+        /* =========================================
+           ZOOM DA IMAGEM
+        ========================================== */
+
+        const comicImage =
+            document.querySelector(
+                ".comic-image"
+            );
+
+
+        comicImage.addEventListener(
+            "click",
+            () => {
+
+                comicImage.classList.toggle(
+                    "zoomed"
+                );
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>

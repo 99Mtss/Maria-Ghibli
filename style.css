@@ -1,324 +1,1710 @@
-/* RESET E CONFIGURAÇÃO BÁSICA */
+/* =====================================================
+   MUNDO DE EUDORA
+   STYLE.CSS
+===================================================== */
+
+
+/* =====================================================
+   CORES
+===================================================== */
+
+:root {
+
+    --creme: #fff8f1;
+
+    --creme-escuro: #f2dfd0;
+
+    --rosa: #dda0ab;
+
+    --rosa-claro: #f2d5d9;
+
+    --rosa-suave: rgba(242, 213, 217, 0.25);
+
+    --marrom: #65483d;
+
+    --marrom-claro: #8d7468;
+
+    --branco: #ffffff;
+
+}
+
+
+/* =====================================================
+   RESET
+===================================================== */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
 }
 
-html, body {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background-color: #08070b;
-    font-family: 'Montserrat', sans-serif;
-    color: #f7f5f0;
+
+html {
+    scroll-behavior: smooth;
 }
 
-/* CANVAS E EFEITOS VISUAIS DE FUNDO */
-#particles-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 5;
+
+body {
+
+    min-height: 100vh;
+
+    font-family: "Poppins", sans-serif;
+
+    color: var(--marrom);
+
+    background: var(--creme);
+
 }
 
-.transition-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #08070b;
-    opacity: 0;
-    pointer-events: none;
-    z-index: 100;
-    transition: opacity 0.8s ease-in-out;
+
+/* =====================================================
+   LINKS
+===================================================== */
+
+a {
+    text-decoration: none;
+
+    color: inherit;
 }
 
-.transition-overlay.active {
-    opacity: 1;
-    pointer-events: auto;
-}
 
-/* ESTRUTURA DE CENAS */
-#app-container {
+/* =====================================================
+   PÁGINA DE BOAS-VINDAS
+===================================================== */
+
+.welcome-page {
+
     position: relative;
-    width: 100%;
-    height: 100%;
-}
 
-.scene {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
-    height: 100%;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), visibility 1.2s;
-    z-index: 1;
+
+    min-height: 100vh;
+
+    min-height: 100svh;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
     overflow: hidden;
-}
 
-.scene.active {
-    opacity: 1;
-    visibility: visible;
-    z-index: 2;
-}
+    /*
+        IMAGEM DE FUNDO
 
-/* EFEITO KEN BURNS (ZOOM CINEMATOGRÁFICO LENTO) */
-.scene-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+        Depois coloque:
+
+        images/fundo-inicial.jpg
+
+        e descomente o background abaixo.
+
+        A imagem poderá ocupar toda a tela.
+    */
+
+    background:
+
+        linear-gradient(
+            rgba(70, 42, 35, 0.20),
+            rgba(70, 42, 35, 0.38)
+        ),
+
+        url("images/fundo-inicial.jpg");
+
     background-size: cover;
+
     background-position: center;
-    transform: scale(1);
-    transition: transform 12s cubic-bezier(0.1, 0.8, 0.3, 1);
-    will-change: transform;
+
+    background-repeat: no-repeat;
+
 }
 
-.scene.active .scene-background {
-    transform: scale(1.08);
-}
 
-.scene-overlay {
+/* =====================================================
+   CAMADA SOBRE A IMAGEM
+===================================================== */
+
+.welcome-overlay {
+
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        to bottom,
-        rgba(8, 7, 11, 0.2) 0%,
-        rgba(8, 7, 11, 0.4) 60%,
-        rgba(8, 7, 11, 0.75) 100%
-    );
-    z-index: 2;
+
+    inset: 0;
+
+    background:
+
+        radial-gradient(
+            circle at center,
+            rgba(255,255,255,0.03) 0%,
+            rgba(60,35,30,0.35) 100%
+        );
+
+    z-index: 1;
+
 }
 
-.scene-overlay.blur-overlay {
-    background: rgba(8, 7, 11, 0.65);
-    backdrop-filter: blur(8px);
-}
 
-.scene-background.fallback {
-    background: radial-gradient(circle at center, #2d2636 0%, #08070b 100%) !important;
-}
+/* =====================================================
+   EFEITO DE LUZ
+===================================================== */
 
-/* CONTEÚDO E TEXTOS */
-.scene-content {
-    position: relative;
-    z-index: 10;
-    width: 100%;
-    height: 100%;
-    padding: 2.5rem 1.5rem;
-    display: flex;
-    flex-direction: column;
-}
+.welcome-page::before {
 
-.flex-center {
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
+    content: "";
 
-.text-bottom {
-    justify-content: flex-end;
-    align-items: center;
-    text-align: center;
-    padding-bottom: 5rem;
-}
+    position: absolute;
 
-.title-intro {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2.5rem;
-    font-weight: 600;
-    letter-spacing: 2px;
-    margin-bottom: 1rem;
-    color: #fff9ef;
-    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
-    opacity: 0;
-    transform: translateY(15px);
-    animation: fadeInUp 1.5s ease 0.4s forwards;
-}
+    width: 420px;
 
-.subtitle-intro {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.4rem;
-    font-style: italic;
-    color: #e2d9cc;
-    margin-bottom: 2.5rem;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-    opacity: 0;
-    transform: translateY(15px);
-    animation: fadeInUp 1.5s ease 0.8s forwards;
-}
+    height: 420px;
 
-.narrative-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.6rem;
-    line-height: 1.5;
-    color: #f7f3ec;
-    max-width: 650px;
-    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.8);
-    margin-bottom: 0.5rem;
-    opacity: 0;
-    transform: translateY(15px);
-}
-
-.scene.active .narrative-text {
-    animation: fadeInUp 1.2s ease 0.3s forwards;
-}
-
-.narrative-text.subtext {
-    font-size: 1.35rem;
-    color: #d1c5b4;
-    margin-bottom: 2rem;
-}
-
-.scene.active .narrative-text.subtext {
-    animation-delay: 1.2s;
-}
-
-/* BOTÕES ESTILIZADOS */
-.btn-primary {
-    background: rgba(255, 253, 248, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.35);
-    color: #ffffff;
-    padding: 0.85rem 2rem;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.85rem;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    border-radius: 40px;
-    cursor: pointer;
-    backdrop-filter: blur(5px);
-    transition: all 0.4s ease;
-    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
-    margin-top: 1.5rem;
-    opacity: 0;
-    transform: translateY(10px);
-}
-
-.scene.active .btn-primary {
-    animation: fadeInUp 1s ease 1s forwards;
-}
-
-.btn-primary:hover {
-    background: rgba(255, 253, 248, 0.3);
-    border-color: rgba(255, 255, 255, 0.7);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 30px rgba(255, 255, 255, 0.2);
-}
-
-.btn-primary:active {
-    transform: translateY(1px);
-}
-
-/* CARTÃO DA CARTA */
-.letter-card {
-    background: rgba(20, 18, 26, 0.75);
-    border: 1px solid rgba(230, 210, 180, 0.25);
-    border-radius: 12px;
-    padding: 2.2rem 1.8rem;
-    max-width: 520px;
-    width: 100%;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(12px);
-    text-align: center;
-    opacity: 0;
-    transform: scale(0.95);
-}
-
-.scene.active .letter-card {
-    animation: cardAppear 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s forwards;
-}
-
-.letter-header {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.6rem;
-    color: #e5c388;
-    margin-bottom: 1.2rem;
-    letter-spacing: 1px;
-}
-
-.letter-body p {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.2rem;
-    line-height: 1.6;
-    color: #ebdcd0;
-    margin-bottom: 0.8rem;
-    font-style: italic;
-}
-
-/* CONTROLE DE ÁUDIO */
-.audio-control {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 50;
-    background: rgba(10, 10, 15, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: #ffffff;
-    width: 42px;
-    height: 42px;
     border-radius: 50%;
+
+    background:
+
+        radial-gradient(
+            circle,
+            rgba(255,255,255,0.23),
+            rgba(255,255,255,0)
+        );
+
+    top: -180px;
+
+    right: -170px;
+
+    filter: blur(10px);
+
+    z-index: 1;
+
+}
+
+
+.welcome-page::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 300px;
+
+    height: 300px;
+
+    border-radius: 50%;
+
+    background:
+
+        radial-gradient(
+            circle,
+            rgba(247,190,200,0.22),
+            rgba(247,190,200,0)
+        );
+
+    bottom: -140px;
+
+    left: -100px;
+
+    filter: blur(15px);
+
+    z-index: 1;
+
+}
+
+
+/* =====================================================
+   CONTEÚDO
+===================================================== */
+
+.welcome-content {
+
+    position: relative;
+
+    z-index: 3;
+
+    width: min(90%, 390px);
+
+    text-align: center;
+
+    color: var(--branco);
+
+    padding:
+
+        40px
+
+        24px
+
+        45px;
+
+
+    animation: welcomeAppear 1.2s ease forwards;
+
+}
+
+
+/* =====================================================
+   ANIMAÇÃO INICIAL
+===================================================== */
+
+@keyframes welcomeAppear {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(35px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+/* =====================================================
+   DECORAÇÃO
+===================================================== */
+
+.welcome-decoration {
+
+    font-size: 24px;
+
+    color: #ffe7e9;
+
+    margin-bottom: 18px;
+
+    animation:
+        sparkle 3s ease-in-out infinite;
+
+}
+
+
+@keyframes sparkle {
+
+    0%,
+    100% {
+
+        opacity: 0.65;
+
+        transform: scale(1);
+
+    }
+
+    50% {
+
+        opacity: 1;
+
+        transform: scale(1.15);
+
+    }
+
+}
+
+
+/* =====================================================
+   TEXTO PEQUENO
+===================================================== */
+
+.welcome-small {
+
+    font-size: 9px;
+
+    font-weight: 500;
+
+    letter-spacing: 3px;
+
+    line-height: 1.7;
+
+    color: rgba(255,255,255,0.82);
+
+    margin-bottom: 13px;
+
+}
+
+
+/* =====================================================
+   NOME MARIA
+===================================================== */
+
+.welcome-content h1 {
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 48px;
+
+    font-weight: 600;
+
+    line-height: 0.95;
+
+    letter-spacing: 1px;
+
+    text-shadow:
+        0 3px 20px rgba(50,25,20,0.28);
+
+}
+
+
+/* =====================================================
+   TÍTULO
+===================================================== */
+
+.welcome-content h2 {
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 29px;
+
+    font-weight: 400;
+
+    line-height: 1.25;
+
+    margin-top: 11px;
+
+    text-shadow:
+        0 2px 15px rgba(50,25,20,0.25);
+
+}
+
+
+.welcome-content h2 span {
+
+    font-weight: 600;
+
+    font-size: 34px;
+
+    color: #ffe8e9;
+
+}
+
+
+/* =====================================================
+   LINHA DECORATIVA
+===================================================== */
+
+.welcome-line {
+
+    width: 65px;
+
+    height: 1px;
+
+    margin: 24px auto 21px;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,0.85),
+            transparent
+        );
+
+}
+
+
+/* =====================================================
+   TEXTO DA HISTÓRIA
+===================================================== */
+
+.welcome-text {
+
+    max-width: 310px;
+
+    margin: 0 auto;
+
+    font-size: 12px;
+
+    font-weight: 300;
+
+    line-height: 1.9;
+
+    color: rgba(255,255,255,0.88);
+
+    text-shadow:
+        0 2px 10px rgba(50,25,20,0.2);
+
+}
+
+
+/* =====================================================
+   BOTÃO
+===================================================== */
+
+.enter-button {
+
     display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    width: 100%;
+
+    max-width: 300px;
+
+    margin: 31px auto 0;
+
+    padding: 15px 18px 15px 22px;
+
+    border-radius: 999px;
+
+    background:
+
+        rgba(255,255,255,0.93);
+
+    color: var(--marrom);
+
+    box-shadow:
+
+        0 12px 35px
+        rgba(43,25,20,0.20);
+
+    font-size: 12px;
+
+    font-weight: 500;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+
+}
+
+
+.enter-button strong {
+
+    width: 34px;
+
+    height: 34px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: var(--rosa);
+
+    color: white;
+
+    font-size: 17px;
+
+}
+
+
+.enter-button:hover {
+
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+
+        0 17px 40px
+        rgba(43,25,20,0.28);
+
+}
+
+
+.enter-button:active {
+
+    transform:
+        scale(0.97);
+
+}
+
+
+/* =====================================================
+   DICA
+===================================================== */
+
+.welcome-hint {
+
+    margin-top: 14px;
+
+    font-size: 9px;
+
+    letter-spacing: 1px;
+
+    color:
+
+        rgba(255,255,255,0.70);
+
+}
+
+
+/* =====================================================
+   DECORAÇÃO INFERIOR
+===================================================== */
+
+.bottom-decoration {
+
+    position: absolute;
+
+    z-index: 3;
+
+    bottom: 25px;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    color: rgba(255,255,255,0.65);
+
+    font-size: 12px;
+
+}
+
+
+.bottom-decoration span:nth-child(2) {
+
+    font-size: 16px;
+
+    color: rgba(255,225,230,0.90);
+
+}
+
+
+/* =====================================================
+   RESPONSIVO — IPHONE PEQUENO
+===================================================== */
+
+@media (max-height: 700px) {
+
+    .welcome-content {
+
+        padding-top: 25px;
+
+        padding-bottom: 30px;
+
+    }
+
+
+    .welcome-decoration {
+
+        margin-bottom: 10px;
+
+    }
+
+
+    .welcome-content h1 {
+
+        font-size: 40px;
+
+    }
+
+
+    .welcome-content h2 {
+
+        font-size: 25px;
+
+    }
+
+
+    .welcome-content h2 span {
+
+        font-size: 29px;
+
+    }
+
+
+    .welcome-line {
+
+        margin:
+
+            17px
+
+            auto
+
+            15px;
+
+    }
+
+
+    .enter-button {
+
+        margin-top: 22px;
+
+    }
+
+
+    .bottom-decoration {
+
+        bottom: 14px;
+
+    }
+
+}
+
+
+/* =====================================================
+   IPHONE / MOBILE
+===================================================== */
+
+@media (max-width: 430px) {
+
+    .welcome-page {
+
+        min-height: 100dvh;
+
+    }
+
+    .welcome-content {
+
+        width: 92%;
+
+    }
+
+}
+
+
+/* =====================================================
+   TELAS MAIORES
+===================================================== */
+
+@media (min-width: 700px) {
+
+    .welcome-page {
+
+        width: min(430px, 100%);
+
+        min-height: 900px;
+
+        margin: 25px auto;
+
+        border-radius: 30px;
+
+        box-shadow:
+
+            0 20px 60px
+            rgba(80,50,40,0.18);
+
+    }
+
+}
+/* =====================================================
+   PÁGINA DOS CAPÍTULOS
+===================================================== */
+
+.chapter-page {
+
+    width: 100%;
+
+    max-width: 430px;
+
+    min-height: 100vh;
+
+    min-height: 100svh;
+
+    margin: auto;
+
+    background: var(--creme);
+
+    display: flex;
+
+    flex-direction: column;
+
+    position: relative;
+
+    overflow: hidden;
+
+}
+
+
+/* =====================================================
+   CABEÇALHO
+===================================================== */
+
+.chapter-header {
+
+    height: 70px;
+
+    padding: 10px 16px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    border-bottom: 1px solid var(--creme-escuro);
+
+    background: rgba(255,248,241,0.94);
+
+    backdrop-filter: blur(10px);
+
+}
+
+
+.back-home {
+
+    width: 40px;
+
+    height: 40px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: var(--rosa-claro);
+
+    font-size: 19px;
+
+    transition: 0.2s;
+
+}
+
+
+.back-home:hover {
+
+    transform: translateX(-2px);
+
+}
+
+
+.chapter-brand {
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+
+    color: var(--marrom-claro);
+
+}
+
+
+.chapter-number {
+
+    font-size: 10px;
+
+    font-weight: 500;
+
+    color: var(--rosa);
+
+}
+
+
+/* =====================================================
+   INTRO DO CAPÍTULO
+===================================================== */
+
+.chapter-intro {
+
+    text-align: center;
+
+    padding: 28px 20px 18px;
+
+}
+
+
+.chapter-label {
+
+    font-size: 9px;
+
+    letter-spacing: 3px;
+
+    color: var(--rosa);
+
+    font-weight: 600;
+
+}
+
+
+.chapter-intro h1 {
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 39px;
+
+    line-height: 1;
+
+    margin-top: 8px;
+
+    font-weight: 600;
+
+}
+
+
+.chapter-intro p {
+
+    margin-top: 9px;
+
+    font-size: 11px;
+
+    line-height: 1.7;
+
+    color: var(--marrom-claro);
+
+}
+
+
+/* =====================================================
+   QUADRINHO
+===================================================== */
+
+.comic-container {
+
+    position: relative;
+
+    padding: 5px 16px;
+
+}
+
+
+.comic-frame {
+
+    overflow: hidden;
+
+    border-radius: 20px;
+
+    background: white;
+
+    padding: 7px;
+
+    border: 1px solid var(--creme-escuro);
+
+    box-shadow:
+
+        0 12px 30px
+        rgba(101,72,61,0.12);
+
+}
+
+
+.comic-image {
+
+    display: block;
+
+    width: 100%;
+
+    border-radius: 14px;
+
+    cursor: zoom-in;
+
+    transition:
+        transform 0.4s ease;
+
+}
+
+
+.comic-image.zoomed {
+
+    transform:
+        scale(1.15);
+
+    cursor: zoom-out;
+
+}
+
+
+/* =====================================================
+   NÚMERO DO QUADRINHO
+===================================================== */
+
+.comic-number {
+
+    position: absolute;
+
+    top: 17px;
+
+    left: 28px;
+
+    width: 36px;
+
+    height: 36px;
+
+    border-radius: 50%;
+
+    background: var(--rosa);
+
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    box-shadow:
+        0 5px 15px
+        rgba(80,45,40,0.2);
+
+}
+
+
+/* =====================================================
+   TEXTO
+===================================================== */
+
+.chapter-text {
+
+    padding:
+
+        24px
+
+        25px
+
+        10px;
+
+    text-align: center;
+
+}
+
+
+.decorative-line {
+
+    color: var(--rosa);
+
+    font-size: 19px;
+
+    margin-bottom: 9px;
+
+}
+
+
+.chapter-text p {
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 21px;
+
+    line-height: 1.35;
+
+    color: var(--marrom);
+
+}
+
+
+.chapter-text p + p {
+
+    margin-top: 8px;
+
+}
+
+
+/* =====================================================
+   PROGRESSO
+===================================================== */
+
+.story-progress {
+
+    padding:
+
+        10px
+
+        20px
+
+        5px;
+
+}
+
+
+.progress-info {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-bottom: 7px;
+
+    font-size: 9px;
+
+    color: var(--marrom-claro);
+
+}
+
+
+.progress-bar {
+
+    width: 100%;
+
+    height: 5px;
+
+    background: #eaded5;
+
+    border-radius: 999px;
+
+    overflow: hidden;
+
+}
+
+
+.progress-fill {
+
+    height: 100%;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            var(--rosa),
+            #efbdc5
+        );
+
+    border-radius: inherit;
+
+    transition: width 0.7s ease;
+
+}
+
+
+/* =====================================================
+   BOTÕES
+===================================================== */
+
+.chapter-navigation {
+
+    display: flex;
+
+    gap: 10px;
+
+    padding: 18px 16px 15px;
+
+}
+
+
+.chapter-button {
+
+    flex: 1;
+
+    min-height: 62px;
+
+    padding: 9px 13px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 8px;
+
+    border-radius: 16px;
+
+    transition:
+
+        transform 0.2s ease,
+
+        box-shadow 0.2s ease;
+
+}
+
+
+.chapter-button:hover {
+
+    transform:
+        translateY(-2px);
+
+}
+
+
+.chapter-button small {
+
+    display: block;
+
+    font-size: 8px;
+
+    margin-bottom: 3px;
+
+}
+
+
+.chapter-button strong {
+
+    display: block;
+
+    font-size: 10px;
+
+}
+
+
+.chapter-button > span {
+
+    font-size: 18px;
+
+}
+
+
+.chapter-button.secondary {
+
+    background: #fff;
+
+    border: 1px solid var(--creme-escuro);
+
+}
+
+
+.chapter-button.primary {
+
+    background: var(--rosa);
+
+    color: white;
+
+    box-shadow:
+
+        0 8px 20px
+        rgba(221,160,171,0.28);
+
+}
+
+
+/* =====================================================
+   RODAPÉ
+===================================================== */
+
+.chapter-footer {
+
+    margin-top: auto;
+
+    padding: 10px 20px 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    font-size: 8px;
+
+    color: var(--marrom-claro);
+
+    letter-spacing: 0.5px;
+
+}
+
+
+/* =====================================================
+   ANIMAÇÃO
+===================================================== */
+
+.chapter-page > * {
+
+    opacity: 0;
+
+    transform:
+        translateY(15px);
+
+}
+
+
+.chapter-loaded .chapter-header {
+
+    animation:
+        chapterAppear 0.5s ease forwards;
+
+}
+
+
+.chapter-loaded .chapter-intro {
+
+    animation:
+        chapterAppear 0.6s ease 0.1s forwards;
+
+}
+
+
+.chapter-loaded .comic-container {
+
+    animation:
+        chapterAppear 0.7s ease 0.2s forwards;
+
+}
+
+
+.chapter-loaded .chapter-text {
+
+    animation:
+        chapterAppear 0.7s ease 0.3s forwards;
+
+}
+
+
+.chapter-loaded .story-progress {
+
+    animation:
+        chapterAppear 0.7s ease 0.4s forwards;
+
+}
+
+
+.chapter-loaded .chapter-navigation {
+
+    animation:
+        chapterAppear 0.7s ease 0.5s forwards;
+
+}
+
+
+.chapter-loaded .chapter-footer {
+
+    animation:
+        chapterAppear 0.7s ease 0.6s forwards;
+
+}
+
+
+@keyframes chapterAppear {
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
+}
+
+
+/* =====================================================
+   IPHONE PEQUENO
+===================================================== */
+
+@media (max-height: 720px) {
+
+    .chapter-intro {
+
+        padding-top: 20px;
+
+    }
+
+
+    .chapter-intro h1 {
+
+        font-size: 34px;
+
+    }
+
+
+    .chapter-text {
+
+        padding-top: 17px;
+
+    }
+
+
+    .chapter-text p {
+
+        font-size: 18px;
+
+    }
+
+
+    .chapter-navigation {
+
+        padding-top: 12px;
+
+    }
+
+}
+
+
+/* =====================================================
+   DESKTOP
+===================================================== */
+
+@media (min-width: 700px) {
+
+    .chapter-page {
+
+        margin:
+
+            25px
+
+            auto;
+
+        min-height: 900px;
+
+        border-radius: 28px;
+
+        box-shadow:
+
+            0 20px 60px
+            rgba(80,50,40,0.16);
+
+    }
+
+}
+
+/* ==================================================
+   PÁGINA FINAL
+================================================== */
+
+.final-page {
+    position: relative;
+
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+
+    background-image: url("imagens/final.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    color: #ffffff;
+}
+
+
+/* ==================================================
+   CAMADA ESCURA DO FUNDO
+================================================== */
+
+.final-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    background: rgba(8, 7, 25, 0.45);
+
+    z-index: 1;
+}
+
+
+/* ==================================================
+   ESTRELAS
+================================================== */
+
+.stars {
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 2;
+
+    pointer-events: none;
+}
+
+
+/* ==================================================
+   CONTEÚDO PRINCIPAL
+================================================== */
+
+.final-content {
+    position: relative;
+
+    z-index: 3;
+
+    width: min(90%, 700px);
+
+    padding: 40px 20px;
+
+    text-align: center;
+
+    animation: finalAppear 2s ease forwards;
+}
+
+
+/* ==================================================
+   SÍMBOLO
+================================================== */
+
+.final-symbol {
+    margin-bottom: 15px;
+
+    font-size: 28px;
+
+    opacity: 0.8;
+
+    animation: gentleGlow 3s ease-in-out infinite;
+}
+
+
+/* ==================================================
+   TÍTULO
+================================================== */
+
+.final-content h1 {
+    margin: 0;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(45px, 8vw, 72px);
+
+    font-weight: 400;
+
+    letter-spacing: 2px;
+
+    text-shadow: 0 3px 20px rgba(0, 0, 0, 0.5);
+}
+
+
+/* ==================================================
+   DIVISOR
+================================================== */
+
+.final-divider {
+    width: 80px;
+    height: 1px;
+
+    margin: 25px auto 35px;
+
+    background: rgba(255, 255, 255, 0.7);
+}
+
+
+/* ==================================================
+   TEXTOS
+================================================== */
+
+.final-content p {
+    max-width: 620px;
+
+    margin: 0 auto 22px;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 16px;
+
+    font-weight: 300;
+
+    line-height: 1.9;
+
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+
+/* ==================================================
+   FRASE DE DESTAQUE
+================================================== */
+
+.final-highlight {
+    margin-top: 30px !important;
+
+    font-family: "Playfair Display", serif !important;
+
+    font-size: 18px !important;
+
+    font-style: italic;
+
+    opacity: 0.95;
+}
+
+
+/* ==================================================
+   BOTÃO VOLTAR
+================================================== */
+
+.back-button {
+    display: inline-flex;
+
     align-items: center;
     justify-content: center;
-    cursor: pointer;
-    backdrop-filter: blur(5px);
+
+    gap: 10px;
+
+    margin-top: 15px;
+
+    padding: 13px 28px;
+
+    border: 1px solid rgba(255, 255, 255, 0.5);
+
+    border-radius: 50px;
+
+    background: rgba(255, 255, 255, 0.08);
+
+    backdrop-filter: blur(8px);
+
+    color: #ffffff;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 14px;
+
+    text-decoration: none;
+
     transition: all 0.3s ease;
 }
 
-.audio-control:hover {
-    background: rgba(255, 255, 255, 0.2);
+
+.back-button span {
+    font-size: 18px;
 }
 
-/* ANIMAÇÕES */
-@keyframes fadeInUp {
+
+.back-button:hover {
+    transform: translateY(-3px);
+
+    background: rgba(255, 255, 255, 0.18);
+
+    border-color: rgba(255, 255, 255, 0.8);
+}
+
+
+/* ==================================================
+   RODAPÉ
+================================================== */
+
+.final-footer {
+    position: absolute;
+
+    bottom: 20px;
+
+    left: 0;
+
+    width: 100%;
+
+    z-index: 3;
+
+    text-align: center;
+}
+
+
+.final-footer span {
+    font-family: "Playfair Display", serif;
+
+    font-size: 15px;
+
+    letter-spacing: 2px;
+
+    opacity: 0.7;
+}
+
+
+/* ==================================================
+   ANIMAÇÕES
+================================================== */
+
+@keyframes finalAppear {
+
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
     to {
         opacity: 1;
         transform: translateY(0);
     }
 }
 
-@keyframes cardAppear {
-    to {
-        opacity: 1;
+
+@keyframes gentleGlow {
+
+    0%,
+    100% {
+        opacity: 0.5;
         transform: scale(1);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.15);
     }
 }
 
-/* RESPONSIVIDADE DESKTOPS */
-@media (min-width: 768px) {
-    .title-intro {
-        font-size: 3.5rem;
+
+/* ==================================================
+   RESPONSIVIDADE
+================================================== */
+
+@media (max-width: 600px) {
+
+    .final-content {
+        width: 92%;
+        padding: 30px 15px;
     }
-    .subtitle-intro {
-        font-size: 1.8rem;
+
+
+    .final-content h1 {
+        font-size: 45px;
     }
-    .narrative-text {
-        font-size: 2rem;
+
+
+    .final-content p {
+        font-size: 14px;
+        line-height: 1.8;
     }
-    .narrative-text.subtext {
-        font-size: 1.6rem;
+
+
+    .final-highlight {
+        font-size: 16px !important;
     }
-    .text-bottom {
-        padding-bottom: 6rem;
+
+
+    .back-button {
+        padding: 12px 24px;
     }
-    .btn-primary {
-        padding: 1rem 2.5rem;
-        font-size: 0.9rem;
+
+
+    .final-footer {
+        bottom: 14px;
     }
-    .letter-card {
-        padding: 3rem 2.5rem;
+
+
+    .final-footer span {
+        font-size: 13px;
     }
+}
+/* BOTÃO - PRÓXIMA PÁGINA ======================================= */
+
+.next-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 30px;
+  padding: 14px 30px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(8px);
+  color: #ee04da;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.next-button span {
+  font-size: 18px;
+  transition: transform 0.3s ease;
+}
+
+.next-button:hover {
+  background: rgba(255, 255, 255, 0.20);
+  border-color: rgba(255, 255, 255, 0.9);
+  transform: translateY(-3px);
+}
+
+.next-button:hover span {
+  transform: translateX(5px);
 }

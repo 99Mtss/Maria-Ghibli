@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <link rel="shortcut icon" href="imagens/duda.png" type="image/x-icon">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Capítulo 1 — Eudora</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet"
+    >
+
+</head>
+
+
+<body>
+
+    <main class="chapter-page">
+
+
+        <!-- =========================================
+             CABEÇALHO
+        ========================================== -->
+
+        <header class="chapter-header">
+
+            <a
+                href="index.html"
+                class="back-home"
+                aria-label="Voltar para o início"
+            >
+                ←
+            </a>
+
+
+            <div class="chapter-brand">
+
+                <span>
+                    MUNDO DE EUDORA
+                </span>
+
+            </div>
+
+
+            <div class="chapter-number">
+
+                01 / 06
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =========================================
+             TÍTULO
+        ========================================== -->
+
+        <section class="chapter-intro">
+
+            <span class="chapter-label">
+                CAPÍTULO 01
+            </span>
+
+
+            <h1>
+                Um novo dia
+            </h1>
+
+
+            <p>
+                Toda história começa com
+                um pequeno momento.
+            </p>
+
+        </section>
+
+
+
+        <!-- =========================================
+             QUADRINHO
+        ========================================== -->
+
+        <section class="comic-container">
+
+
+            <div class="comic-frame">
+
+                <!--
+                    COLOQUE A IMAGEM AQUI
+
+                    images/quadrinho1.png
+                -->
+
+                <img
+                    src="imagens/Eu1.png"
+                    alt="Primeiro quadrinho da história de Eudora"
+                    class="comic-image"
+                >
+
+            </div>
+
+
+            <!-- Número do quadrinho -->
+
+            <div class="comic-number">
+                01
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =========================================
+             TEXTO DA HISTÓRIA
+        ========================================== -->
+
+        <section class="chapter-text">
+
+            <div class="decorative-line">
+                ✦
+            </div>
+
+
+            <p>
+                Eudora começava mais um dia
+                cercada pelas pequenas coisas
+                que faziam seu coração sorrir.
+            </p>
+
+
+            <p>
+                Para ela, cada manhã escondia
+                uma nova história esperando
+                para ser descoberta.
+            </p>
+
+        </section>
+
+
+
+        <!-- =========================================
+             PROGRESSO
+        ========================================== -->
+
+        <section class="story-progress">
+
+            <div class="progress-info">
+
+                <span>
+                    Sua jornada
+                </span>
+
+                <span>
+                    1 de 6
+                </span>
+
+            </div>
+
+
+            <div class="progress-bar">
+
+                <div
+                    class="progress-fill"
+                    style="width: 16.66%;"
+                ></div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================================
+             NAVEGAÇÃO
+        ========================================== -->
+
+        <section class="chapter-navigation">
+
+
+            <!-- VOLTAR -->
+
+            <a
+                href="index.html"
+                class="chapter-button secondary"
+            >
+
+                <span>
+                    ←
+                </span>
+
+                <div>
+
+                    <small>
+                        Voltar
+                    </small>
+
+                    <strong>
+                        Início
+                    </strong>
+
+                </div>
+
+            </a>
+
+
+
+            <!-- AVANÇAR -->
+
+            <a
+                href="capitulo2.html"
+                class="chapter-button primary"
+            >
+
+                <div>
+
+                    <small>
+                        Próximo
+                    </small>
+
+                    <strong>
+                        Capítulo 2
+                    </strong>
+
+                </div>
+
+                <span>
+                    →
+                </span>
+
+            </a>
+
+
+        </section>
+
+
+
+        <!-- =========================================
+             RODAPÉ
+        ========================================== -->
+
+        <footer class="chapter-footer">
+
+            <span>
+                Eudora
+            </span>
+
+            <span>
+                ♥
+            </span>
+
+            <span>
+                Uma pequena história
+            </span>
+
+        </footer>
+
+
+    </main>
+
+
+    <!-- =========================================
+         JAVASCRIPT
+    ========================================== -->
+
+    <script>
+
+        /* =========================================
+           ANIMAÇÃO DE ENTRADA
+        ========================================== */
+
+        window.addEventListener(
+            "load",
+            () => {
+
+                document.body.classList.add(
+                    "chapter-loaded"
+                );
+
+            }
+        );
+
+
+
+        /* =========================================
+           CLIQUE NA IMAGEM
+           AMPLIA A IMAGEM
+        ========================================== */
+
+        const comicImage =
+            document.querySelector(
+                ".comic-image"
+            );
+
+
+        comicImage.addEventListener(
+            "click",
+            () => {
+
+                comicImage.classList.toggle(
+                    "zoomed"
+                );
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>

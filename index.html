@@ -2,212 +2,109 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Uma Jornada para Maria Eduarda</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Bem-vinda ao Mundo de Eudora</title>
+    <link rel="shortcut icon" href="imagens/duda.png" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="../Maria-Ghibli/imagens/amor.png.png" type="image/x-icon">
-    <!-- Google Fonts para estilo poético/cinematográfico -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet"
+    >
 </head>
+
 <body>
 
-    <!-- Overlay de transição entre cenas -->
-    <div id="transition-overlay" class="transition-overlay"></div>
+    <main class="welcome-page">
 
-    <!-- Canvas para efeito de partículas mágicas/vento -->
-    <canvas id="particles-canvas"></canvas>
+        <!--
+            IMAGEM DE FUNDO
 
-    <!-- Controle Discreto de Áudio -->
-    <button id="audio-control" class="audio-control" aria-label="Alternar som" title="Música ambiente">
-        <span id="audio-icon">🎵</span>
-    </button>
-    <audio id="bg-music" loop preload="auto">
-        <source src="imagens/paulyudin-romantic-romantic-music-573992 (1).mp3" type="audio/mpeg">
-    </audio>
+            Depois coloque sua imagem nesta pasta:
 
-    <!-- CONTAINER PRINCIPAL DE CENAS -->
-    <main id="app-container">
+            images/fundo-inicial.jpg
 
-        CENA 0: ABERTURA
-        <section class="scene active" data-scene="0">
-            <div class="scene-background" style="background-image: url('imagens/eudora.jpg');"></div>
-            <div class="scene-overlay"></div>
-            <div class="scene-content flex-center">
-                <h1 class="title-intro">OLá, Maria Eduarda</h1>
-                <p class="subtitle-intro">Bem-vinda ao Mundo de Eudora</p>
-                <button class="btn-primary" onclick="nextScene()">✦ ENTRAR</button>
-            </div>
-        </section>
+            Você pode trocar o nome no CSS.
+        -->
 
-        <!-- CENA 1: FLORESTA -->
-        <!-- <section class="scene" data-scene="1">
-            <div class="scene-background" style="background-image: url('imagens/floresta.jpg');"></div>
-            <div class="scene-overlay"></div>
-            <div class="scene-content text-bottom">
-                <p class="narrative-text">Às vezes, as melhores histórias começam sem a gente saber onde vão terminar.</p>
-                <button class="btn-primary" onclick="nextScene()">CONTINUAR →</button>
-            </div>
-        </section> -->
+        <div class="welcome-overlay"></div>
 
-        <!-- CENA 2: A COLINA -->
-        <!-- <section class="scene" data-scene="2">
-            <div class="scene-background" style="background-image: url('imagens/colina.jpg');"></div>
-            <div class="scene-overlay"></div>
-            <div class="scene-content text-bottom">
-                <p class="narrative-text">Talvez o caminho não seja sobre chegar rápido...</p>
-                <p class="narrative-text subtext">...mas sobre perceber o que existe durante o caminho.</p>
-                <button class="btn-primary" onclick="nextScene()">CONTINUAR →</button>
-            </div>
-        </section> -->
 
-        <!-- CENA 3: JARDIM DOS LÍRIOS -->
-        <!-- <section class="scene" data-scene="3">
-            <div class="scene-background" style="background-image: url('imagens/lirios.jpg');"></div>
-            <div class="scene-overlay"></div>
-            <div class="scene-content text-bottom">
-                <p class="narrative-text">Alguns lugares fazem a gente parar por alguns segundos...</p>
-                <p class="narrative-text subtext">...só para perceber como algo simples pode ser bonito.</p>
-                <button class="btn-primary" onclick="nextScene()">CONTINUAR →</button>
-            </div>
-        </section> -->
+        <!-- CONTEÚDO -->
+        <section class="welcome-content">
 
-        <!-- CENA 4: A CARTA -->
-        <!-- <section class="scene" data-scene="4">
-            <div class="scene-background" style="background-image: url('imagens/lirios.jpg');"></div>
-            <div class="scene-overlay blur-overlay"></div>
-            <div class="scene-content flex-center">
-                <div class="letter-card">
-                    <div class="letter-header">✦ Para Maria Eduarda</div>
-                    <div class="letter-body">
-                        <p>Maria Eduarda,</p>
-                        <p>Eu poderia simplesmente ter escrito uma mensagem qualquer...</p>
-                        <p>Mas achei que seria muito mais bonito te levar por um pequeno caminho antes.</p>
-                        <p>Não sei exatamente onde essa história vai chegar.</p>
-                        <p>Mas gostei da ideia de criar um lugar bonito para você visitar por alguns minutos.</p>
-                        <p>Espero que você tenha gostado da viagem.</p>
-                    </div>
-                    <button class="btn-primary" onclick="nextScene()">CONTINUAR ❤</button>
-                </div>
-            </div> -->
-        </section>
-                <section class="scene" data-scene="3">
-            <div class="scene-background" style="background-image: url('imagens/abertura.png');"></div>
-            <div class="scene-overlay"></div>
-            <div class="scene-content text-bottom">
-                <p class="narrative-text">Alguns lugares fazem a gente parar por alguns segundos...</p>
-                <p class="narrative-text subtext">...só para perceber como algo simples pode ser bonito.</p>
-                <button class="btn-primary" onclick="nextScene()">CONTINUAR →</button>
+            <div class="welcome-decoration">
+                ✦
             </div>
-        </section>
-                <section class="scene" data-scene="3">
-            <div class="scene-background" style="background-image: url('imagens/Eu1.png');"></div>
-            <div class="scene-overlay"></div>
-            <div class="scene-content text-bottom">
-                <p class="narrative-text">Alguns lugares fazem a gente parar por alguns segundos...</p>
-                <p class="narrative-text subtext">...só para perceber como algo simples pode ser bonito.</p>
-                <button class="btn-primary" onclick="nextScene()">CONTINUAR →</button>
-            </div>
-        </section>
-                <section class="scene" data-scene="3">
-            <div class="scene-background" style="background-image: url('imagens/Eu2.png');"></div>
-            <div class="scene-overlay"></div>
-            <div class="scene-content text-bottom">
-                <p class="narrative-text">Alguns lugares fazem a gente parar por alguns segundos...</p>
-                <p class="narrative-text subtext">...só para perceber como algo simples pode ser bonito.</p>
-                <button class="btn-primary" onclick="nextScene()">CONTINUAR →</button>
-            </div>
-        </section>
-                <section class="scene" data-scene="3">
-            <div class="scene-background" style="background-image: url('imagens/Eu3.png');"></div>
-            <div class="scene-overlay"></div>
-            <div class="scene-content text-bottom">
-                <p class="narrative-text">Alguns lugares fazem a gente parar por alguns segundos...</p>
-                <p class="narrative-text subtext">...só para perceber como algo simples pode ser bonito.</p>
-                <button class="btn-primary" onclick="nextScene()">CONTINUAR →</button>
-            </div>
-        </section>
-                <section class="scene" data-scene="3">
-            <div class="scene-background" style="background-image: url('imagens/Eu4.png');"></div>
-            <div class="scene-overlay"></div>
-            <div class="scene-content text-bottom">
-                <p class="narrative-text">Alguns lugares fazem a gente parar por alguns segundos...</p>
-                <p class="narrative-text subtext">...só para perceber como algo simples pode ser bonito.</p>
-                <button class="btn-primary" onclick="nextScene()">CONTINUAR →</button>
-            </div>
-        </section>
-                <section class="scene" data-scene="3">
-            <div class="scene-background" style="background-image: url('imagens/Eu5.png');"></div>
-            <div class="scene-overlay"></div>
-            <div class="scene-content text-bottom">
-                <p class="narrative-text">Alguns lugares fazem a gente parar por alguns segundos...</p>
-                <p class="narrative-text subtext">...só para perceber como algo simples pode ser bonito.</p>
-                <button class="btn-primary" onclick="nextScene()">CONTINUAR →</button>
-            </div>
-        </section>
-                <section class="scene" data-scene="3">
-            <div class="scene-background" style="background-image: url('imagens/Eu6.png');"></div>
-            <div class="scene-overlay"></div>
-            <div class="scene-content text-bottom">
-                <p class="narrative-text">Alguns lugares fazem a gente parar por alguns segundos...</p>
-                <p class="narrative-text subtext">...só para perceber como algo simples pode ser bonito.</p>
-                <button class="btn-primary" onclick="nextScene()">CONTINUAR →</button>
-            </div>
-        </section>
-                <section class="scene" data-scene="3">
-            <div class="scene-background" style="background-image: url('imagens/setima.jpg');"></div>
-            <div class="scene-overlay"></div>
-            <div class="scene-content text-bottom">
-                <p class="narrative-text">Alguns lugares fazem a gente parar por alguns segundos...</p>
-                <p class="narrative-text subtext">...só para perceber como algo simples pode ser bonito.</p>
-                <button class="btn-primary" onclick="nextScene()">CONTINUAR →</button>
-            </div>
-        </section>
-                <section class="scene" data-scene="3">
-            <div class="scene-background" style="background-image: url('imagens/oitava.jpg');"></div>
-            <div class="scene-overlay"></div>
-            <div class="scene-content text-bottom">
-                <p class="narrative-text">Alguns lugares fazem a gente parar por alguns segundos...</p>
-                <p class="narrative-text subtext">...só para perceber como algo simples pode ser bonito.</p>
-                <button class="btn-primary" onclick="nextScene()">CONTINUAR →</button>
-            </div>
-        </section>
-                <section class="scene" data-scene="3">
-            <div class="scene-background" style="background-image: url('imagens/nona.jpg');"></div>
-            <div class="scene-overlay"></div>
-            <div class="scene-content text-bottom">
-                <p class="narrative-text">Alguns lugares fazem a gente parar por alguns segundos...</p>
-                <p class="narrative-text subtext">...só para perceber como algo simples pode ser bonito.</p>
-                <button class="btn-primary" onclick="nextScene()">CONTINUAR →</button>
-            </div>
-        </section>
-                <section class="scene" data-scene="3">
-            <div class="scene-background" style="background-image: url('imagens/lirios.jpg');"></div>
-            <div class="scene-overlay"></div>
-            <div class="scene-content text-bottom">
-                <p class="narrative-text">Alguns lugares fazem a gente parar por alguns segundos...</p>
-                <p class="narrative-text subtext">...só para perceber como algo simples pode ser bonito.</p>
-                <button class="btn-primary" onclick="nextScene()">CONTINUAR →</button>
-            </div>
+
+            <p class="welcome-small">
+                UMA PEQUENA HISTÓRIA FOI FEITA PARA VOCÊ
+            </p>
+
+
+            <h1>
+                Olá, Maria
+            </h1>
+
+            <h2>
+                Bem-vinda ao
+                <br>
+                <span>Mundo de Eudora</span>
+            </h2>
+
+
+            <div class="welcome-line"></div>
+
+
+            <p class="welcome-text">
+                Entre sonhos, músicas, crianças,
+                gatos e pequenos momentos,
+                existe uma história esperando
+                para ser descoberta.
+            </p>
+
+
+            <!-- BOTÃO -->
+            <a
+                href="capitulo1.html"
+                class="enter-button"
+            >
+                <span>
+                    Entrar no mundo de Eudora
+                </span>
+
+                <strong>
+                    →
+                </strong>
+            </a>
+
+
+            <p class="welcome-hint">
+                Toque para começar
+            </p>
+
         </section>
 
 
-        <!-- CENA 5: FINAL -->
-        <section class="scene" data-scene="5">
-            <div class="scene-background" style="background-image: url('imagens/vista.png.png');"></div>
-            <div class="scene-overlay"></div>
-            <div class="scene-content flex-center">
-                <h1 class="title-intro">Talvez essa seja só a primeira página.</h1>
-                <p class="subtitle-intro">E o resto... a gente pode descobrir pelo caminho.</p>
-                <div class="final-actions">
-                    <button class="btn-primary" onclick="restartJourney()">♡ REVISITAR A HISTÓRIA</button>
-                </div>
-            </div>
-        </section>
+        <!-- DECORAÇÃO INFERIOR -->
+        <div class="bottom-decoration">
+
+            <span>✦</span>
+
+            <span>♡</span>
+
+            <span>✦</span>
+
+        </div>
 
     </main>
 
-    <script src="script.js"></script>
 </body>
 </html>

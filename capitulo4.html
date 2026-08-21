@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<link rel="shortcut icon" href="imagens/duda.png" type="image/x-icon">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Capítulo 4 — A música de Eudora</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet"
+    >
+
+</head>
+
+
+<body>
+
+    <main class="chapter-page">
+
+
+        <!-- =========================================
+             CABEÇALHO
+        ========================================== -->
+
+        <header class="chapter-header">
+
+            <a
+                href="capitulo3.html"
+                class="back-home"
+                aria-label="Voltar ao capítulo anterior"
+            >
+                ←
+            </a>
+
+
+            <div class="chapter-brand">
+
+                <span>
+                    MUNDO DE EUDORA
+                </span>
+
+            </div>
+
+
+            <div class="chapter-number">
+                04 / 06
+            </div>
+
+        </header>
+
+
+
+        <!-- =========================================
+             TÍTULO
+        ========================================== -->
+
+        <section class="chapter-intro">
+
+            <span class="chapter-label">
+                CAPÍTULO 04
+            </span>
+
+
+            <h1>
+                A música de Eudora
+            </h1>
+
+
+            <p>
+                Algumas músicas conseguem
+                dizer aquilo que as palavras
+                não conseguem.
+            </p>
+
+        </section>
+
+
+
+        <!-- =========================================
+             QUADRINHO
+        ========================================== -->
+
+        <section class="comic-container">
+
+            <div class="comic-frame">
+
+                <img
+                    src="imagens/Eu4.png"
+                    alt="Quarto quadrinho da história de Eudora"
+                    class="comic-image"
+                >
+
+            </div>
+
+
+            <div class="comic-number">
+                04
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================================
+             TEXTO DA HISTÓRIA
+        ========================================== -->
+
+        <section class="chapter-text">
+
+            <div class="decorative-line">
+                ♪
+            </div>
+
+
+            <p>
+                Havia algo especial nas músicas
+                que Eudora ouvia todos os dias.
+            </p>
+
+
+            <p>
+                Quando colocava seus fones,
+                o mundo parecia ficar um pouco
+                mais silencioso.
+            </p>
+
+
+            <p>
+                Ela fechava os olhos,
+                respirava fundo e deixava
+                cada melodia levar seus pensamentos
+                para longe.
+            </p>
+
+
+            <p>
+                Era nesses pequenos momentos
+                que Eudora lembrava de seus sonhos.
+            </p>
+
+        </section>
+
+
+
+        <!-- =========================================
+             PROGRESSO
+        ========================================== -->
+
+        <section class="story-progress">
+
+            <div class="progress-info">
+
+                <span>
+                    Sua jornada
+                </span>
+
+                <span>
+                    4 de 6
+                </span>
+
+            </div>
+
+
+            <div class="progress-bar">
+
+                <div
+                    class="progress-fill"
+                    style="width: 66.66%;"
+                ></div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================================
+             NAVEGAÇÃO
+        ========================================== -->
+
+        <section class="chapter-navigation">
+
+
+            <!-- VOLTAR -->
+
+            <a
+                href="capitulo3.html"
+                class="chapter-button secondary"
+            >
+
+                <span>
+                    ←
+                </span>
+
+
+                <div>
+
+                    <small>
+                        Anterior
+                    </small>
+
+                    <strong>
+                        Capítulo 3
+                    </strong>
+
+                </div>
+
+            </a>
+
+
+
+            <!-- AVANÇAR -->
+
+            <a
+                href="capitulo5.html"
+                class="chapter-button primary"
+            >
+
+                <div>
+
+                    <small>
+                        Próximo
+                    </small>
+
+                    <strong>
+                        Capítulo 5
+                    </strong>
+
+                </div>
+
+
+                <span>
+                    →
+                </span>
+
+            </a>
+
+
+        </section>
+
+
+
+        <!-- =========================================
+             RODAPÉ
+        ========================================== -->
+
+        <footer class="chapter-footer">
+
+            <span>
+                Eudora
+            </span>
+
+            <span>
+                ♪
+            </span>
+
+            <span>
+                Uma pequena história
+            </span>
+
+        </footer>
+
+
+    </main>
+
+
+
+    <!-- =========================================
+         JAVASCRIPT
+    ========================================== -->
+
+    <script>
+
+        /* =========================================
+           ANIMAÇÃO DE ENTRADA
+        ========================================== */
+
+        window.addEventListener(
+            "load",
+            () => {
+
+                document.body.classList.add(
+                    "chapter-loaded"
+                );
+
+            }
+        );
+
+
+
+        /* =========================================
+           ZOOM DA IMAGEM
+        ========================================== */
+
+        const comicImage =
+            document.querySelector(
+                ".comic-image"
+            );
+
+
+        comicImage.addEventListener(
+            "click",
+            () => {
+
+                comicImage.classList.toggle(
+                    "zoomed"
+                );
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>
