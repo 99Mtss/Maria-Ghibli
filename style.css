@@ -91,18 +91,6 @@ a {
 
     overflow: hidden;
 
-    /*
-        IMAGEM DE FUNDO
-
-        Depois coloque:
-
-        images/fundo-inicial.jpg
-
-        e descomente o background abaixo.
-
-        A imagem poderá ocupar toda a tela.
-    */
-
     background:
 
         linear-gradient(
@@ -110,7 +98,7 @@ a {
             rgba(70, 42, 35, 0.38)
         ),
 
-        url("images/fundo-inicial.jpg");
+        url("imagens/bb.png");
 
     background-size: cover;
 
@@ -1673,38 +1661,757 @@ a {
         font-size: 13px;
     }
 }
-/* BOTÃO - PRÓXIMA PÁGINA ======================================= */
+/* =====================================================
+   PÁGINA 6 — BOTÃO PRÓXIMA PÁGINA
+===================================================== */
 
 .next-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 30px;
-  padding: 14px 30px;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: 50px;
-  background: rgba(255, 255, 255, 0.10);
-  backdrop-filter: blur(8px);
-  color: #ee04da;
-  font-family: "Poppins", sans-serif;
-  font-size: 14px;
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
+    flex: 1;
+
+    min-height: 62px;
+
+    padding: 9px 13px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 8px;
+
+    border-radius: 16px;
+
+    background: var(--rosa);
+
+    color: var(--branco);
+
+    font-family: "Poppins", sans-serif;
+
+    text-decoration: none;
+
+    box-shadow:
+        0 8px 20px
+        rgba(221, 160, 171, 0.28);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
-.next-button span {
-  font-size: 18px;
-  transition: transform 0.3s ease;
-}
 
 .next-button:hover {
-  background: rgba(255, 255, 255, 0.20);
-  border-color: rgba(255, 255, 255, 0.9);
-  transform: translateY(-3px);
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 25px
+        rgba(221, 160, 171, 0.38);
 }
 
+
+.next-button:active {
+    transform: scale(0.98);
+}
+
+
+/* =====================================================
+   TEXTO DO BOTÃO
+===================================================== */
+
+.next-button div {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    line-height: 1.2;
+}
+
+
+.next-button small {
+    display: block;
+
+    font-size: 8px;
+
+    margin-bottom: 3px;
+
+    opacity: 0.85;
+}
+
+
+.next-button strong {
+    display: block;
+
+    font-size: 10px;
+
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   SETA
+===================================================== */
+
+.next-button span {
+    font-size: 18px;
+
+    flex-shrink: 0;
+
+    transition: transform 0.3s ease;
+}
+
+
 .next-button:hover span {
-  transform: translateX(5px);
+    transform: translateX(4px);
+}
+
+/* ==================================================
+   PÁGINA FINAL — MESMO ESTILO DOS CAPÍTULOS
+================================================== */
+
+.final-page {
+    position: relative;
+
+    width: 100%;
+    max-width: 430px;
+
+    min-height: 100vh;
+    min-height: 100svh;
+
+    margin: auto;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background: var(--creme);
+
+    color: var(--marrom);
+}
+
+
+/* ==================================================
+   FUNDO DECORATIVO
+================================================== */
+
+.final-page::before {
+    content: "";
+
+    position: absolute;
+
+    width: 280px;
+    height: 280px;
+
+    top: -120px;
+    right: -120px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(242, 213, 217, 0.65),
+            rgba(242, 213, 217, 0)
+        );
+
+    filter: blur(10px);
+
+    pointer-events: none;
+}
+
+
+.final-page::after {
+    content: "";
+
+    position: absolute;
+
+    width: 240px;
+    height: 240px;
+
+    bottom: -120px;
+    left: -100px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(221, 160, 171, 0.22),
+            rgba(221, 160, 171, 0)
+        );
+
+    filter: blur(15px);
+
+    pointer-events: none;
+}
+
+
+/* Esconde as camadas antigas da página final */
+.final-overlay {
+    display: none;
+}
+
+.stars {
+    display: none;
+}
+
+
+/* ==================================================
+   CONTEÚDO PRINCIPAL
+================================================== */
+
+.final-content {
+    position: relative;
+
+    z-index: 2;
+
+    width: 100%;
+    max-width: 430px;
+
+    padding: 45px 25px 90px;
+
+    text-align: center;
+
+    animation:
+        chapterAppear 0.8s ease forwards;
+}
+
+
+/* ==================================================
+   SÍMBOLO
+================================================== */
+
+.final-symbol {
+    margin-bottom: 12px;
+
+    font-size: 24px;
+
+    color: var(--rosa);
+
+    animation:
+        gentleGlow 3s ease-in-out infinite;
+}
+
+
+/* ==================================================
+   TÍTULO
+================================================== */
+
+.final-content h1 {
+    margin: 0;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 46px;
+
+    font-weight: 600;
+
+    line-height: 1;
+
+    color: var(--marrom);
+
+    letter-spacing: 1px;
+
+    text-shadow: none;
+}
+
+
+/* ==================================================
+   DIVISOR
+================================================== */
+
+.final-divider {
+    width: 65px;
+
+    height: 1px;
+
+    margin: 22px auto 28px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            var(--rosa),
+            transparent
+        );
+}
+
+
+/* ==================================================
+   TEXTOS
+================================================== */
+
+.final-content p {
+    max-width: 330px;
+
+    margin: 0 auto 15px;
+
+    font-family:
+        "Poppins",
+        sans-serif;
+
+    font-size: 12px;
+
+    font-weight: 400;
+
+    line-height: 1.8;
+
+    color: var(--marrom-claro);
+
+    text-shadow: none;
+}
+
+
+/* ==================================================
+   FRASE DE DESTAQUE
+================================================== */
+
+.final-highlight {
+    margin-top: 22px !important;
+    margin-bottom: 22px !important;
+
+    font-family:
+        "Cormorant Garamond",
+        serif !important;
+
+    font-size: 22px !important;
+
+    font-weight: 500;
+
+    font-style: italic;
+
+    line-height: 1.35 !important;
+
+    color: var(--marrom) !important;
+
+    opacity: 1;
+}
+
+
+/* ==================================================
+   BOTÃO VOLTAR AO INÍCIO
+================================================== */
+
+.back-button {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    width: 100%;
+    max-width: 300px;
+
+    margin: 28px auto 0;
+
+    padding: 15px 18px 15px 22px;
+
+    border: none;
+
+    border-radius: 999px;
+
+    background:
+        var(--rosa);
+
+    color: var(--branco);
+
+    box-shadow:
+        0 8px 20px
+        rgba(221, 160, 171, 0.28);
+
+    font-family:
+        "Poppins",
+        sans-serif;
+
+    font-size: 12px;
+
+    font-weight: 500;
+
+    text-decoration: none;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.back-button span {
+    width: 34px;
+
+    height: 34px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.22);
+
+    font-size: 17px;
+
+    transition:
+        transform 0.3s ease;
+}
+
+
+.back-button:hover {
+    transform:
+        translateY(-3px);
+
+    background:
+        var(--rosa);
+
+    border-color: transparent;
+
+    box-shadow:
+        0 12px 28px
+        rgba(221, 160, 171, 0.38);
+}
+
+
+.back-button:hover span {
+    transform:
+        translateX(-3px);
+}
+
+
+/* ==================================================
+   RODAPÉ
+================================================== */
+
+.final-footer {
+    position: absolute;
+
+    bottom: 20px;
+
+    left: 0;
+
+    width: 100%;
+
+    z-index: 2;
+
+    text-align: center;
+}
+
+
+.final-footer span {
+    font-family:
+        "Poppins",
+        sans-serif;
+
+    font-size: 9px;
+
+    letter-spacing: 1px;
+
+    color: var(--marrom-claro);
+
+    opacity: 0.8;
+}
+
+
+/* ==================================================
+   ANIMAÇÕES
+================================================== */
+
+@keyframes gentleGlow {
+
+    0%,
+    100% {
+        opacity: 0.6;
+
+        transform:
+            scale(1);
+    }
+
+    50% {
+        opacity: 1;
+
+        transform:
+            scale(1.12);
+    }
+
+}
+
+
+/* ==================================================
+   RESPONSIVIDADE
+================================================== */
+
+@media (max-height: 720px) {
+
+    .final-content {
+        padding-top: 30px;
+
+        padding-bottom: 70px;
+    }
+
+    .final-content h1 {
+        font-size: 40px;
+    }
+
+    .final-content p {
+        font-size: 11px;
+
+        line-height: 1.65;
+    }
+
+    .final-highlight {
+        font-size: 19px !important;
+    }
+
+    .back-button {
+        margin-top: 18px;
+    }
+
+}
+
+
+@media (min-width: 700px) {
+
+    .final-page {
+        min-height: 900px;
+
+        margin: 25px auto;
+
+        border-radius: 28px;
+
+        box-shadow:
+            0 20px 60px
+            rgba(80, 50, 40, 0.16);
+    }
+
+}
+/* ==================================================
+   IMAGEM DA PÁGINA FINAL
+================================================== */
+
+.final-page {
+    position: relative;
+    overflow: hidden;
+
+    width: 100%;
+    max-width: 430px;
+
+    min-height: 100vh;
+    min-height: 100svh;
+
+    margin: auto;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* ==================================================
+   PÁGINA FINAL
+================================================== */
+
+.final-page {
+    position: relative;
+
+    width: 100%;
+       max-width: 430px;
+
+    min-height: 100vh;
+    min-height: 100svh;
+
+    margin: auto;
+
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+
+    background: var(--creme);
+}
+
+/* ==================================================
+   PÁGINA FINAL
+================================================== */
+
+.final-page {
+    position: relative;
+
+    width: 100%;
+    max-width: 430px;
+
+    min-height: 100vh;
+    min-height: 100svh;
+
+    margin: auto;
+
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+
+    background: var(--creme);
+}
+
+
+/* ==================================================
+   IMAGEM FINAL
+================================================== */
+
+.final-page {
+    position: relative;
+    width: 100%;
+    max-width: 430px;
+    min-height: 100vh;
+    min-height: 100svh;
+    margin: auto;
+    overflow: hidden;
+    background: var(--creme);
+}
+
+
+/* IMAGEM COMPLETA */
+
+.final-image {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    /* Mostra a parte de baixo da imagem */
+    object-position: center bottom;
+
+    z-index: 0;
+
+    filter: none;
+}
+
+
+/* CONTEÚDO */
+
+.final-content {
+    position: relative;
+    z-index: 2;
+
+    width: 100%;
+
+    margin-top: auto;
+
+    padding: 20px 20px 80px;
+
+    text-align: center;
+
+    /* Fundo praticamente transparente */
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 248, 240, 0) 0%,
+        rgba(255, 248, 240, 0.12) 30%,
+        rgba(255, 248, 240, 0.25) 100%
+    );
+
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+
+/* TEXTO COM SOMBRA PARA APARECER NA IMAGEM */
+
+.final-content h1,
+.final-content p,
+.final-highlight {
+    text-shadow:
+        0 2px 8px rgba(255, 255, 255, 0.8);
+}
+
+
+/* RODAPÉ */
+
+.final-footer {
+    position: absolute;
+
+    bottom: 15px;
+    left: 0;
+
+    width: 100%;
+
+    z-index: 3;
+
+    text-align: center;
+}
+/* ==================================================
+   CORES DOS TEXTOS — PÁGINA FINAL
+================================================== */
+
+/* TÍTULO */
+.final-content h1 {
+    color: #fffaf2 !important;
+
+    text-shadow:
+        0 2px 6px rgba(50, 30, 25, 0.85),
+        0 0 15px rgba(50, 30, 25, 0.45);
+}
+
+
+/* SÍMBOLO */
+.final-symbol {
+    color: #fffaf2 !important;
+
+    text-shadow:
+        0 2px 6px rgba(50, 30, 25, 0.8);
+}
+
+
+/* TEXTOS NORMAIS */
+.final-content p {
+    color: #fffaf2 !important;
+
+    font-weight: 500;
+
+    text-shadow:
+        0 2px 5px rgba(50, 30, 25, 0.9),
+        0 0 10px rgba(50, 30, 25, 0.5);
+}
+
+
+/* FRASE DE DESTAQUE */
+.final-highlight {
+    color: #ffffff !important;
+
+    font-weight: 600;
+
+    text-shadow:
+        0 2px 6px rgba(50, 30, 25, 0.95),
+        0 0 12px rgba(50, 30, 25, 0.6);
+}
+
+
+/* LINHA DECORATIVA */
+.final-divider {
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #fffaf2,
+            transparent
+        );
+
+    box-shadow:
+        0 1px 5px rgba(50, 30, 25, 0.5);
+}
+
+
+/* RODAPÉ */
+.final-footer span {
+    color: #fffaf2 !important;
+
+    font-weight: 500;
+
+    text-shadow:
+        0 2px 5px rgba(50, 30, 25, 0.9);
 }
