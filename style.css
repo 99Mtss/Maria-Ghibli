@@ -2518,3 +2518,253 @@ body:has(.welcome-page) {
     color: #C9C4D8;
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+body {
+    min-height: 100dvh;
+}
+
+.page {
+    min-height: 100dvh;
+    height: 100dvh;
+}
+
+/* =========================================================
+   MUNDO DE EUDORA — SISTEMA GLOBAL
+   Música + transição de livro + responsividade
+========================================================= */
+
+html,
+body {
+    width: 100%;
+    min-width: 0;
+    overflow-x: hidden;
+}
+
+body {
+    perspective: 1600px;
+}
+
+/* Evita que o botão de música seja cortado por containers */
+.music-button {
+    position: fixed;
+    right: 16px;
+    bottom: 18px;
+    z-index: 99999;
+
+    width: 44px;
+    height: 44px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    border-radius: 50%;
+
+    background: rgba(101, 72, 61, 0.62);
+    color: #ffffff;
+
+    font-family: "Poppins", sans-serif;
+    font-size: 17px;
+    line-height: 1;
+
+    cursor: pointer;
+    user-select: none;
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.18);
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.music-button:hover {
+    transform: scale(1.08);
+    background: rgba(101, 72, 61, 0.80);
+}
+
+.music-button:active {
+    transform: scale(0.94);
+}
+
+.music-button.music-playing {
+    box-shadow:
+        0 0 0 5px rgba(221, 160, 171, 0.16),
+        0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+/* =========================================================
+   TRANSIÇÃO DE LIVRO
+========================================================= */
+
+.chapter-page,
+.welcome-page,
+.final-page {
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* Entrada de cada página */
+.book-page-enter {
+    animation:
+        bookPageOpen
+        0.75s
+        cubic-bezier(.22, .61, .36, 1)
+        both;
+}
+
+@keyframes bookPageOpen {
+    from {
+        opacity: 0;
+        transform:
+            perspective(1500px)
+            rotateY(7deg)
+            translateX(22px);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            perspective(1500px)
+            rotateY(0)
+            translateX(0);
+    }
+}
+
+/* Próxima página */
+.book-page-forward {
+    animation:
+        bookPageForward
+        0.68s
+        cubic-bezier(.77, 0, .18, 1)
+        forwards;
+    transform-origin: left center;
+}
+
+@keyframes bookPageForward {
+    0% {
+        opacity: 1;
+        transform:
+            perspective(1500px)
+            rotateY(0)
+            translateX(0);
+        box-shadow: none;
+    }
+
+    35% {
+        opacity: 1;
+        transform:
+            perspective(1500px)
+            rotateY(-24deg)
+            translateX(-5px);
+        box-shadow:
+            -16px 0 30px rgba(70, 45, 38, 0.10);
+    }
+
+    70% {
+        opacity: 0.78;
+        transform:
+            perspective(1500px)
+            rotateY(-62deg)
+            translateX(-16px);
+        box-shadow:
+            -25px 0 45px rgba(70, 45, 38, 0.16);
+    }
+
+    100% {
+        opacity: 0;
+        transform:
+            perspective(1500px)
+            rotateY(-90deg)
+            translateX(-25px);
+        box-shadow:
+            -35px 0 60px rgba(70, 45, 38, 0.22);
+    }
+}
+
+/* Página anterior */
+.book-page-back {
+    animation:
+        bookPageBack
+        0.68s
+        cubic-bezier(.77, 0, .18, 1)
+        forwards;
+    transform-origin: right center;
+}
+
+@keyframes bookPageBack {
+    0% {
+        opacity: 1;
+        transform:
+            perspective(1500px)
+            rotateY(0)
+            translateX(0);
+        box-shadow: none;
+    }
+
+    35% {
+        opacity: 1;
+        transform:
+            perspective(1500px)
+            rotateY(24deg)
+            translateX(5px);
+        box-shadow:
+            16px 0 30px rgba(70, 45, 38, 0.10);
+    }
+
+    70% {
+        opacity: 0.78;
+        transform:
+            perspective(1500px)
+            rotateY(62deg)
+            translateX(16px);
+        box-shadow:
+            25px 0 45px rgba(70, 45, 38, 0.16);
+    }
+
+    100% {
+        opacity: 0;
+        transform:
+            perspective(1500px)
+            rotateY(90deg)
+            translateX(25px);
+        box-shadow:
+            35px 0 60px rgba(70, 45, 38, 0.22);
+    }
+}
+
+/* Respeita acessibilidade */
+@media (prefers-reduced-motion: reduce) {
+    .book-page-enter,
+    .book-page-forward,
+    .book-page-back {
+        animation: none !important;
+    }
+
+    .music-button {
+        transition: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .music-button {
+        right: 13px;
+        bottom: 15px;
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+}

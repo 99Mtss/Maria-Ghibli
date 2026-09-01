@@ -34,12 +34,24 @@
         rel="stylesheet"
     >
 
+
 </head>
 
 
 <body>
 
-    <main class="chapter-page">
+    <audio id="backgroundMusic" loop preload="auto">
+        <source src="musicas/musica.mp3" type="audio/mpeg">
+    </audio>
+
+    <button
+        id="musicButton"
+        class="music-button"
+        type="button"
+        aria-label="Ativar música"
+    >🔇</button>
+
+<main class="chapter-page">
 
 
         <!-- =========================================
@@ -287,49 +299,7 @@
     <!-- =========================================
          JAVASCRIPT
     ========================================== -->
-
-    <script>
-
-        /* =========================================
-           ANIMAÇÃO DE ENTRADA
-        ========================================== */
-
-        window.addEventListener(
-            "load",
-            () => {
-
-                document.body.classList.add(
-                    "chapter-loaded"
-                );
-
-            }
-        );
-
-
-
-        /* =========================================
-           CLIQUE NA IMAGEM
-           AMPLIA A IMAGEM
-        ========================================== */
-
-        const comicImage =
-            document.querySelector(
-                ".comic-image"
-            );
-
-
-        comicImage.addEventListener(
-            "click",
-            () => {
-
-                comicImage.classList.toggle(
-                    "zoomed"
-                );
-
-            }
-        );
-
-    </script>
+    <script src="script.js"></script>
 
 </body>
 

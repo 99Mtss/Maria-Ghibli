@@ -1,166 +1,439 @@
-// ESTADO E NAVEGAÇÃO DE CENAS
-let currentSceneIndex = 0;
-let isTransitioning = false;
+/* =========================================================
+   MUNDO DE EUDORA
+   NAVEGAÇÃO SPA + MÚSICA CONTÍNUA + VIRADA DE PÁGINA
+   A música fica em um único <audio> e NÃO é recriada
+   durante a troca dos capítulos.
+========================================================= */
 
-const scenes = document.querySelectorAll('.scene');
-const transitionOverlay = document.getElementById('transition-overlay');
-const bgMusic = document.getElementById('bg-music');
-const audioControl = document.getElementById('audio-control');
-const audioIcon = document.getElementById('audio-icon');
+(() => {
+    "use strict";
 
-// Imagens a carregar previamente
-const imageSources = [
-    'assets/images/01-abertura.jpg',
-    'assets/images/02-floresta.jpg',
-    'assets/images/03-colina.jpg',
-    'assets/images/04-lirios.jpg',
-    'assets/images/05-carta.jpg',
-    'assets/images/06-final.jpg'
-];
+    const PAGE_TURN_TIME = 680;
+    const MUSIC_VOLUME = 0.30;
+    const MUSIC_KEY = "eudoraMusicEnabled";
+    const MUSIC_TIME_KEY = "eudoraMusicTime";
 
-document.addEventListener('DOMContentLoaded', () => {
-    preloadImages();
-    initParticles();
-    setupAudioControl();
-    verifyImageSources();
-});
+    let changingPage = false;
+    let currentPage = getPage();
 
-// Pré-carrega as imagens
-function preloadImages() {
-    imageSources.forEach(src => {
-        const img = new Image();
-        img.src = src;
-    });
-}
+    const music = document.getElementById("backgroundMusic");
+    const musicButton = document.getElementById("musicButton");
 
-// Trata erro de carregamento das imagens
-function verifyImageSources() {
-    scenes.forEach(scene => {
-        const bg = scene.querySelector('.scene-background');
-        if (bg) {
-            const urlMatch = bg.style.backgroundImage.match(/url\(['"]?(.*?)['"]?\)/);
-            if (urlMatch && urlMatch[1]) {
-                const img = new Image();
-                img.src = urlMatch[1];
-                img.onerror = () => {
-                    console.warn(`Imagem não encontrada: ${urlMatch[1]}. Usando gradiente fallback.`);
-                    bg.classList.add('fallback');
-                };
-            }
+    /* =====================================================
+       PÁGINA ATUAL
+    ===================================================== */
+
+    function getPage() {
+        return document.querySelector(
+            ".chapter-page, .welcome-page, .final-page"
+        );
+    }
+
+    function initializePage() {
+        currentPage = getPage();
+
+        if (!currentPage) return;
+
+        currentPage.classList.remove(
+            "book-page-forward",
+            "book-page-back"
+        );
+
+        if (currentPage.classList.contains("chapter-page")) {
+            currentPage.classList.add("chapter-loaded");
         }
-    });
-}
 
-// Troca de cena com transição de fade suave
-function showScene(targetIndex) {
-    if (isTransitioning || targetIndex === currentSceneIndex || targetIndex >= scenes.length) {
-        return;
+        requestAnimationFrame(() => {
+            currentPage.classList.add("book-page-enter");
+        });
+
+        currentPage
+            .querySelectorAll(".comic-image")
+            .forEach((image) => {
+                image.addEventListener("click", () => {
+                    image.classList.toggle("zoomed");
+                });
+            });
+
+        attachNavigationLinks();
     }
 
-    isTransitioning = true;
-    transitionOverlay.classList.add('active');
+    /* =====================================================
+       MÚSICA — UM ÚNICO ELEMENTO DURANTE TODO O SITE
+    ===================================================== */
 
-    setTimeout(() => {
-        scenes[currentSceneIndex].classList.remove('active');
-        currentSceneIndex = targetIndex;
-        scenes[currentSceneIndex].classList.add('active');
+    function updateMusicButton() {
+        if (!musicButton || !music) return;
 
-        setTimeout(() => {
-            transitionOverlay.classList.remove('active');
-            isTransitioning = false;
-        }, 300);
-
-    }, 800);
-}
-
-function nextScene() {
-    if (currentSceneIndex === 0 && bgMusic.paused) {
-        playAudio();
-    }
-    showScene(currentSceneIndex + 1);
-}
-
-function restartJourney() {
-    showScene(0);
-}
-
-// CONTROLE DE MÚSICA DE FUNDO
-function setupAudioControl() {
-    bgMusic.volume = 0.3;
-
-    audioControl.addEventListener('click', () => {
-        if (bgMusic.paused) {
-            playAudio();
+        if (music.paused) {
+            musicButton.textContent = "🔇";
+            musicButton.setAttribute("aria-label", "Ativar música");
+            musicButton.classList.remove("music-playing");
         } else {
-            pauseAudio();
+            musicButton.textContent = "♪";
+            musicButton.setAttribute("aria-label", "Pausar música");
+            musicButton.classList.add("music-playing");
         }
-    });
-}
+    }
 
-function playAudio() {
-    bgMusic.play().then(() => {
-        audioIcon.textContent = '🎵';
-        audioControl.style.opacity = '1';
-    }).catch(err => {
-        console.log("Autoplay retido pelo navegador. Aguardando interação.", err);
-    });
-}
+    async function startMusic() {
+        if (!music) return;
 
-function pauseAudio() {
-    bgMusic.pause();
-    audioIcon.textContent = '🔇';
-    audioControl.style.opacity = '0.5';
-}
+        try {
+            await music.play();
+            localStorage.setItem(MUSIC_KEY, "true");
+            updateMusicButton();
+        } catch (_) {
+            updateMusicButton();
+        }
+    }
 
-// EFEITO DE PARTÍCULAS MÁGICAS NO CANVAS
-function initParticles() {
-    const canvas = document.getElementById('particles-canvas');
-    const ctx = canvas.getContext('2d');
+    function stopMusic() {
+        if (!music) return;
 
-    let width = canvas.width = window.innerWidth;
-    let height = canvas.height = window.innerHeight;
+        music.pause();
+        localStorage.setItem(MUSIC_KEY, "false");
 
-    window.addEventListener('resize', () => {
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = window.innerHeight;
-    });
+        try {
+            localStorage.setItem(
+                MUSIC_TIME_KEY,
+                String(music.currentTime)
+            );
+        } catch (_) {}
 
-    const numParticles = 35;
-    const particles = [];
+        updateMusicButton();
+    }
 
-    for (let i = 0; i < numParticles; i++) {
-        particles.push({
-            x: Math.random() * width,
-            y: Math.random() * height,
-            radius: Math.random() * 2 + 0.5,
-            alpha: Math.random() * 0.5 + 0.2,
-            speedX: Math.random() * 0.6 - 0.2,
-            speedY: Math.random() * -0.5 - 0.2,
-            pulse: Math.random() * 0.02 + 0.005
+    if (music) {
+        music.volume = MUSIC_VOLUME;
+        music.loop = true;
+
+        /*
+           Só restaura a posição se o navegador realmente
+           estiver abrindo o site pela primeira vez ou após
+           um recarregamento. Durante as trocas internas,
+           o mesmo elemento <audio> continua vivo.
+        */
+        const savedTime = Number(
+            localStorage.getItem(MUSIC_TIME_KEY)
+        );
+
+        if (
+            Number.isFinite(savedTime) &&
+            savedTime > 0 &&
+            savedTime < 999999
+        ) {
+            music.addEventListener(
+                "loadedmetadata",
+                () => {
+                    try {
+                        if (savedTime < music.duration) {
+                            music.currentTime = savedTime;
+                        }
+                    } catch (_) {}
+                },
+                { once: true }
+            );
+        }
+
+        if (musicButton) {
+            musicButton.addEventListener("click", (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+
+                if (music.paused) {
+                    startMusic();
+                } else {
+                    stopMusic();
+                }
+            });
+        }
+
+        music.addEventListener("play", updateMusicButton);
+        music.addEventListener("pause", updateMusicButton);
+
+        music.addEventListener("timeupdate", () => {
+            if (!music.paused) {
+                try {
+                    localStorage.setItem(
+                        MUSIC_TIME_KEY,
+                        String(music.currentTime)
+                    );
+                } catch (_) {}
+            }
+        });
+
+        updateMusicButton();
+
+        /*
+           Se a pessoa já havia ativado a música,
+           tentamos continuar ao abrir o site novamente.
+        */
+        if (localStorage.getItem(MUSIC_KEY) === "true") {
+            startMusic();
+        }
+
+        /*
+           Ajuda a liberar o áudio em navegadores que bloqueiam
+           autoplay. Esta interação acontece apenas uma vez.
+        */
+        const firstInteraction = () => {
+            if (
+                localStorage.getItem(MUSIC_KEY) !== "false" &&
+                music.paused
+            ) {
+                startMusic();
+            }
+        };
+
+        document.addEventListener(
+            "pointerdown",
+            firstInteraction,
+            { once: true }
+        );
+
+        document.addEventListener(
+            "keydown",
+            firstInteraction,
+            { once: true }
+        );
+    }
+
+    /* =====================================================
+       DIREÇÃO DA VIRADA
+    ===================================================== */
+
+    function getDirection(link) {
+        const text = (link.textContent || "")
+            .trim()
+            .toLowerCase();
+
+        const aria = (link.getAttribute("aria-label") || "")
+            .toLowerCase();
+
+        const href = (link.getAttribute("href") || "")
+            .toLowerCase();
+
+        const combined = `${text} ${aria}`;
+
+        if (
+            combined.includes("anterior") ||
+            combined.includes("voltar") ||
+            combined.includes("início") ||
+            combined.includes("inicio") ||
+            combined.includes("←") ||
+            href.endsWith("index.html")
+        ) {
+            return "back";
+        }
+
+        return "forward";
+    }
+
+    /* =====================================================
+       LINKS INTERNOS
+    ===================================================== */
+
+    function isInternalHTML(href) {
+        if (!href) return false;
+
+        if (
+            href.startsWith("#") ||
+            href.startsWith("mailto:") ||
+            href.startsWith("tel:") ||
+            href.startsWith("javascript:")
+        ) {
+            return false;
+        }
+
+        try {
+            const url = new URL(href, window.location.href);
+
+            return (
+                url.origin === window.location.origin &&
+                /\.html?$/i.test(url.pathname)
+            );
+        } catch (_) {
+            return false;
+        }
+    }
+
+    /* =====================================================
+       CARREGA A PRÓXIMA PÁGINA SEM RECARREGAR O DOCUMENTO
+       O <audio> permanece intacto — aqui está a solução
+       para a música não sofrer o corte entre capítulos.
+    ===================================================== */
+
+    async function navigateTo(link, options = {}) {
+        if (changingPage) return;
+
+        const href = link.getAttribute("href");
+        if (!isInternalHTML(href)) return;
+
+        const destination = new URL(href, window.location.href);
+        const direction = getDirection(link);
+        const shouldPushState = options.pushState !== false;
+
+        changingPage = true;
+
+        /* Começa a buscar a próxima página imediatamente. */
+        const pageRequest = fetch(destination.href, {
+            credentials: "same-origin",
+            cache: "no-cache"
+        }).then((response) => {
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+            return response.text();
+        });
+
+        /* Inicia a virada da página atual. */
+        if (currentPage) {
+            currentPage.classList.remove(
+                "book-page-forward",
+                "book-page-back"
+            );
+
+            void currentPage.offsetWidth;
+
+            currentPage.classList.add(
+                direction === "back"
+                    ? "book-page-back"
+                    : "book-page-forward"
+            );
+        }
+
+        try {
+            const html = await pageRequest;
+            const parser = new DOMParser();
+            const nextDocument = parser.parseFromString(
+                html,
+                "text/html"
+            );
+
+            const nextPage = nextDocument.querySelector(
+                ".chapter-page, .welcome-page, .final-page"
+            );
+
+            if (!nextPage) {
+                throw new Error("Página principal não encontrada.");
+            }
+
+            /* Aguarda o tempo da animação para trocar o conteúdo. */
+            await wait(PAGE_TURN_TIME);
+
+            if (shouldPushState) {
+                history.pushState({}, "", destination.href);
+            }
+
+            /*
+               SOMENTE o conteúdo da página é substituído.
+               O áudio e o botão de música continuam sendo
+               exatamente os mesmos elementos DOM.
+            */
+            const oldPage = getPage();
+            if (oldPage) {
+                oldPage.replaceWith(nextPage);
+            } else {
+                document.body.appendChild(nextPage);
+            }
+
+            document.title = nextDocument.title || "Mundo de Eudora";
+
+            /* Garante que o conteúdo fique visível e preparado. */
+            initializePage();
+
+            window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: "instant"
+            });
+
+            changingPage = false;
+        } catch (error) {
+            console.error("Erro ao trocar de página:", error);
+
+            /*
+               Fallback: se o Live Server/servidor não permitir
+               fetch, ainda abrimos a página normalmente.
+            */
+            window.location.href = destination.href;
+        }
+    }
+
+    function wait(ms) {
+        return new Promise((resolve) => {
+            setTimeout(resolve, ms);
         });
     }
 
-    function renderParticles() {
-        ctx.clearRect(0, 0, width, height);
+    function attachNavigationLinks() {
+        const links = document.querySelectorAll("a[href]");
 
-        particles.forEach(p => {
-            p.x += p.speedX;
-            p.y += p.speedY;
+        links.forEach((link) => {
+            if (link.dataset.eudoraNavigation === "true") return;
+            if (!isInternalHTML(link.getAttribute("href"))) return;
 
-            p.alpha += Math.sin(Date.now() * p.pulse) * 0.005;
+            link.dataset.eudoraNavigation = "true";
 
-            if (p.y < -10) p.y = height + 10;
-            if (p.x > width + 10) p.x = -10;
-            if (p.x < -10) p.x = width + 10;
+            link.addEventListener("click", (event) => {
+                if (
+                    event.ctrlKey ||
+                    event.metaKey ||
+                    event.shiftKey ||
+                    event.altKey ||
+                    event.button !== 0
+                ) {
+                    return;
+                }
 
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(255, 245, 220, ${Math.abs(p.alpha)})`;
-            ctx.fill();
+                event.preventDefault();
+                navigateTo(link);
+            });
         });
-
-        requestAnimationFrame(renderParticles);
     }
 
-    renderParticles();
-}
+    /* =====================================================
+       BOTÃO INICIAL
+    ===================================================== */
+
+    const enterButton = document.querySelector(".enter-button");
+
+    if (enterButton && music) {
+        enterButton.addEventListener("click", () => {
+            if (music.paused) {
+                startMusic();
+            }
+        });
+    }
+
+    /* =====================================================
+       BOTÕES DO NAVEGADOR: VOLTAR / AVANÇAR
+       Também mantêm o áudio intacto.
+    ===================================================== */
+
+    window.addEventListener("popstate", async () => {
+        if (changingPage) return;
+
+        const href = window.location.href;
+        const fakeLink = document.createElement("a");
+        fakeLink.href = href;
+        fakeLink.textContent = "← voltar";
+
+        /* Ao usar o botão do navegador, não criamos outro history state. */
+        await navigateTo(fakeLink, { pushState: false });
+    });
+
+    /* =====================================================
+       ACESSIBILIDADE / REDUCED MOTION
+    ===================================================== */
+
+    if (
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+        document.documentElement.classList.add("reduced-motion");
+    }
+
+    /* Inicialização da página atual. */
+    initializePage();
+})();

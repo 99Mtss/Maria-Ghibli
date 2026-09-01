@@ -38,6 +38,18 @@
 
 <body>
 
+    <audio id="backgroundMusic" loop preload="auto">
+        <source src="musicas/musica.mp3" type="audio/mpeg">
+    </audio>
+
+    <button
+        id="musicButton"
+        class="music-button"
+        type="button"
+        aria-label="Ativar música"
+    >🔇</button>
+
+
     <main class="chapter-page">
 
 
@@ -232,12 +244,7 @@
              NAVEGAÇÃO
         ========================================== -->
 
-        <section class="chapter-navigation">
-
-
-            <!-- VOLTAR -->
-
-            <div class="chapter-navigation">
+<section class="chapter-navigation">
 
     <a href="capitulo5.html" class="chapter-button secondary">
         <div>
@@ -257,7 +264,7 @@
         <span>→</span>
     </a>
 
-</div>
+</section>
 
 
 
@@ -289,48 +296,7 @@
     <!-- =========================================
          JAVASCRIPT
     ========================================== -->
-
-    <script>
-
-        /* =========================================
-           ANIMAÇÃO DE ENTRADA
-        ========================================== */
-
-        window.addEventListener(
-            "load",
-            () => {
-
-                document.body.classList.add(
-                    "chapter-loaded"
-                );
-
-            }
-        );
-
-
-
-        /* =========================================
-           ZOOM DA IMAGEM
-        ========================================== */
-
-        const comicImage =
-            document.querySelector(
-                ".comic-image"
-            );
-
-
-        comicImage.addEventListener(
-            "click",
-            () => {
-
-                comicImage.classList.toggle(
-                    "zoomed"
-                );
-
-            }
-        );
-
-    </script>
+    <script src="script.js"></script>
 
 </body>
 
