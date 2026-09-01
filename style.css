@@ -2768,3 +2768,145 @@ body {
         font-size: 16px;
     }
 }
+
+/* =====================================================
+   CORREÇÃO DEFINITIVA — MOBILE SEM ROLAGEM VERTICAL
+===================================================== */
+@media (max-width: 699px) {
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        min-height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        overscroll-behavior: none;
+    }
+
+    body {
+        min-height: 100dvh;
+        height: 100dvh;
+    }
+
+    .welcome-page,
+    .chapter-page,
+    .final-page {
+        width: 100%;
+        max-width: 430px;
+        height: 100dvh;
+        min-height: 100dvh;
+        max-height: 100dvh;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+
+    /* Evita que o quadrinho seja maior que a tela e empurre a página */
+    .chapter-page .comic-container {
+        flex: 0 1 auto;
+        min-height: 0;
+    }
+
+    .chapter-page .comic-frame {
+        max-height: 34dvh;
+    }
+
+    .chapter-page .comic-image {
+        width: 100%;
+        max-height: 32dvh;
+        object-fit: contain;
+    }
+
+    .chapter-page .chapter-intro {
+        flex: 0 0 auto;
+        padding-top: 18px;
+        padding-bottom: 10px;
+    }
+
+    .chapter-page .chapter-intro h1 {
+        font-size: clamp(30px, 9vw, 39px);
+    }
+
+    .chapter-page .chapter-intro p {
+        line-height: 1.45;
+    }
+
+    .chapter-page .chapter-text {
+        flex: 0 1 auto;
+        padding: 12px 22px 5px;
+    }
+
+    .chapter-page .chapter-text p {
+        font-size: clamp(17px, 5vw, 21px);
+        line-height: 1.2;
+    }
+
+    .chapter-page .story-progress {
+        flex: 0 0 auto;
+        padding: 7px 20px 3px;
+    }
+
+    .chapter-page .chapter-navigation {
+        flex: 0 0 auto;
+        padding: 9px 14px 8px;
+    }
+
+    .chapter-page .chapter-button {
+        min-height: 52px;
+        padding: 7px 10px;
+    }
+
+    .chapter-page .chapter-footer {
+        flex: 0 0 auto;
+        padding: 5px 15px 10px;
+    }
+
+    /* Em celulares muito baixos, compacta ainda mais */
+    @media (max-height: 720px) {
+        .chapter-page .chapter-header {
+            height: 54px;
+            padding: 7px 12px;
+        }
+
+        .chapter-page .chapter-intro {
+            padding-top: 9px;
+            padding-bottom: 6px;
+        }
+
+        .chapter-page .comic-frame {
+            max-height: 29dvh;
+        }
+
+        .chapter-page .comic-image {
+            max-height: 27dvh;
+        }
+
+        .chapter-page .chapter-text {
+            padding-top: 7px;
+        }
+
+        .chapter-page .chapter-text p {
+            font-size: 16px;
+            line-height: 1.15;
+        }
+
+        .chapter-page .chapter-navigation {
+            padding-top: 6px;
+            padding-bottom: 5px;
+        }
+
+        .chapter-page .chapter-button {
+            min-height: 47px;
+        }
+    }
+
+    /* Final sem espaço extra embaixo */
+    .final-page {
+        justify-content: center;
+    }
+
+    .final-page .final-content {
+        max-height: calc(100dvh - 70px);
+        overflow: hidden;
+    }
+}
